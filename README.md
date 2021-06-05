@@ -1,5 +1,18 @@
 # Blinding A Seed Phrase Using Massive BIP32 Paths
 
+## Table of Contents
+* [Intro](#intro)
+* [Tech Overview](#tech-overview)
+* [Generate 2 Seed Phrases](#generate-2-seed-phrases)
+* [Blind 1 Seed Phrase](#blind-1-seed-phrase)
+* [Create Account Map](#create-account-map)
+* [Get Receive Address](#get-receive-address)
+* [Sign Transaction Using Blinded Key](#sign-transaction-using-blinded-key)
+* [Why This Matters](#why-this-matters)
+* [Bigger Picture](#bigger-picture)
+* [References](#references)
+
+
 ## Intro
 
 Bitcoin's multisig security model is a breakthrough in human being's ability to self-custody value.
