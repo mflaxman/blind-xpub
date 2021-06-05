@@ -3,12 +3,13 @@
 ## Intro
 
 Bitcoin's multisig security model is a breakthrough in human being's ability to self-custody value.
-However, having multiple seeds floating around that convey information about what they're protecting introduces new risks.
-A holder of a standard seed phrase used in a `4-of-7` multisig wallet can learn substantial information about what they're protecting.
-This can introduce new security risks, as well as provide a choke-point for governments to gain access to information about private holdings.
+For example, it is impossible to `3-of-5` your gold.
 
-While multisig offers unrivaled security to HODLers, one of the biggest bariers to adoption is the need for having multiple secure locations.
-A scheme that enable 1 (or more) semi-trusted collaborative custodians (e.g. a lawyer, accountant, heir, close friend, "uncle Jim" bitcoiner, collaborative custody service, etc) to participate in a multisig quorum with *zero* knowledge of what they're protecting could increase multisig adoption and reduce hacks/theft/loss in the bitcoin space.
+A holder of a standard seed phrase used in a `4-of-7` multisig wallet may be able to learn substantial information about what they're protecting.
+Having multiple seeds floating around that may convey information about what they're protecting introduces new risks and provides a choke-point for governments to gain access to information about private holdings.
+
+While multisig offers unrivaled security to HODLers, one of the biggest barriers to adoption is the need for having multiple secure locations.
+A scheme that enables 1 (or more) semi-trusted collaborative custodians (e.g. a lawyer, accountant, heir, close friend, "uncle Jim" bitcoiner, collaborative custody service, etc) to participate in a multisig quorum with *zero* knowledge of what they're protecting could increase multisig adoption and reduce hacks/theft/loss in the bitcoin space.
 
 ## Tech Overview
 
@@ -58,7 +59,7 @@ Public Key Record (from hardware wallet) without SLIP132 encoding:
 [2553c4b8/48h/1h/0h/2h]tpubDEiNuxUt4pKjKk7khdv9jfcS92R1WQD6Z3dwjyMFrYj2iMrYbk3xB5kjg6kL4P8SoWsQHpd378RCTrM7fsw4chnJKhE2kfbfc4BCPkVh6g9
 ```
 
-### Verification
+### Buidl Verification
 
 This could be generated in build as follows:
 ```
@@ -112,7 +113,7 @@ You can validate on this on an airgap computer using [Ian Coleman’s popular op
 
 [Here is a screenshot of proving accuracy of this derivation path](blinding_from_vpub.png).
 
-For the avoidance of any doubt, [here is a screenshot assuming you have access to their seed phrase](blinding_from_seed_phrase.png) (SLIP132 version byte encoding [here](blinded_tpub_to_vpub.png).
+For the avoidance of any doubt, [here is a screenshot assuming you have access to their seed phrase](blinding_from_seed_phrase.png) (SLIP132 version byte encoding [here](blinded_tpub_to_vpub.png)).
 
 ## Create Account Map
 
@@ -121,7 +122,7 @@ In our case, we take the regular seed phrase A xpub (see [Seed Phrase A](#Seed-P
 
 That will also generate [this account map PDF backup](investx12_sellx12_blinded_backup.pdf) (account map only [here](account_map.png)).
 
-### buidl Verification
+### Buidl Verification
 
 We run the following code in python:
 ```
@@ -160,13 +161,13 @@ wsh(sortedmulti(1,[aa917e75/48h/1h/0h/2h]tpubDEZRP2dRKoGRJnR9zn6EoLouYKbYyjFsxyw
 Powered by Bitcoin Core, we see the following address:
 ![image](address.png)
 
-### buidl Validation
+### Buidl Validation
 ```
 >>> p2wsh_sortedmulti_obj.get_address(0)
 'tb1q6d6frh07dl8djmnv48aqelp6r0mejzh7qgauw7yx5qcjehvcfnsqxc6lly'
 ```
 
-Using a testnet faucet, we send some TBTC to this address:
+Using a testnet faucet, we send some tBTC to this address:
 <https://blockstream.info/testnet/tx/67eed0727a639f214b3da3ee206b2a27ed8cd8aca6ccd795972da5bc33dc4d35>
 
 ## Sign Transaction Using Blinded Key
@@ -177,16 +178,15 @@ We will return the funds to the testnet faucet address:
 
 ### Specter-Desktop
 
-Specter-Desktop builds us an unsigned PSBT to sweep these funds:
+Specter-Desktop creates an unsigned PSBT to sweep these funds:
 ![image](specter_desktop_unsigned.png)
 
-The corresponding PSBT it displays is:
+The corresponding PSBT it displays is (image version for airgap signers [here](psbt.png)):
 ```
 cHNidP8BAFUCAAAAATVN3DO8pS2XldfMpqzYjO0nKmsg7qM9SyGfY3py0O5nAAAAAAD9////ASWGAQAAAAAAGXapFDRKD0jKFQ7CuQOBdmC5tosTpnAmiKwAAAAAAAEAlAIAAAABuyYafpgmVz6R0nydIwQhLhK9wyq+MdzpZ2eYwfXFb0sAAAAAFxYAFNeBq/yMVx5pEh75uUCeQEenBts2/v///wKghgEAAAAAACIAINN0kd3+b87Zbmyp+gz8Ohv3mQr+AjvHeIagMSzdmEzgRxk5AAAAAAAWABSximIn3PYA1OH6B/cCwK+yIu8LAFKOHgABASughgEAAAAAACIAINN0kd3+b87Zbmyp+gz8Ohv3mQr+AjvHeIagMSzdmEzgAQVHUSEDELg0dGMOr13U7TYY21H1qqau+SG9gzPtgUOqbqcdjU0hAz8uRBD7XX0++TpuqGBjHSbo0olYV8KAZj3e9ovghmHxUq4iBgMQuDR0Yw6vXdTtNhjbUfWqpq75Ib2DM+2BQ6pupx2NTSwlU8S4MAAAgAEAAIAAAACAAgAAgJ2K93mFc/VzNmNZa01lm1MAAAAAAAAAACIGAz8uRBD7XX0++TpuqGBjHSbo0olYV8KAZj3e9ovghmHxHKqRfnUwAACAAQAAgAAAAIACAACAAAAAAAAAAAAAAA==
 ```
-(PSBT image version for airgap signers [here](psbt.png))
 
-### Buidl
+### Sign with Multiwallet
 
 ```
 $ python3 multiwallet.py 
@@ -243,27 +243,36 @@ cHNidP8BAFUCAAAAATVN3DO8pS2XldfMpqzYjO0nKmsg7qM9SyGfY3py0O5nAAAAAAD9////ASWGAQAA
 At the time of seed generation up until revealing the account map (with secret BIP32 path), the holder of seed phrase B was unable to learn *anything* about what they were protecting:
 * Transaction history (including any spent UTXOs) & balance
 * Quorum information (`1-of-2` in this case)
-* We establish a new trust boundary, explicitly separating privacy information (account map) from security information (private key material)
+
+We also establish a new [trust boundary](https://en.wikipedia.org/wiki/Trust_boundary), explicitly separating privacy information (account map) from security information (private key material, in this case BIP39 seed phrases).
 
 If the HODLer of this seed phrase were malicious or compelled by a government, they would not be able to reveal any privacy information.
-Also, because this is built on top of existing BIP32 paths, it is *already* compatible with existing software.
+Also, because this is built on top of existing BIP32 paths, it is *already* compatible with many existing hardware walelts an software libraries.
 
-Of course, this scheme requires that the account map get to the blinded key holder in the event they are needed for recovery.
-More on this is below (see [Bigger Picture](#Bigger-Picture)).
+Of course, this scheme requires that the blinded key holder be able to get access to the account map in the event they are needed for recovery.
+Presumably, this tradeoff is well worth it if the original key-holder is still alive but has lost a key and needs recovery assistance.
+Alternatively, if the original key-holder is now deceased, privacy is likely no longer a top concern.
+
+More on the mechanism of transfer of the account map is in the following section ([Bigger Picture](#Bigger-Picture)).
 
 ## Bigger Picture
 
-In this scheme, we've used large and randomly generated BIP32 paths to blind a single seed phrase in our quorum.
+In this scheme, we've used large and randomly generated BIP32 path to blind a single seed phrase in our quorum.
 However, the same scheme could be applied to *every* seed phrase in our qourom.
 This means that if an unauthorized party gains access to a single seed phrase (perhaps a single secure location is compromised), they learn *nothing* about what it protects nor what threshold is required for access.
 Under current best-practices, if a bad actor gains unauthorized access to a single seed phrase they could perhaps learn the following:
-* Yesterday that seed phrase was party to a massive transaction that likely had a large change ouput (note that this situation could be true even if this seed phrase did not sign in the transaction)
-* The transaction that it was a party to (with likely large change back to itself) was a `2-of-3`, meaning that only 1 more seed phrase (along with the account map) is needed to spend funds.
-Potential outcome: show up at this person's house or place of business with the seed phrase and a $5 wrench.
+* Yesterday that seed phrase was party to a massive transaction that likely had a large change ouput (note that this situation could be true even if this seed phrase did not cosign in the transaction)
+* The transaction that this seed phrase was a party to (which likely had large change sent back to itself) was a `2-of-3`, meaning that only 1 more seed phrase (along with the account map) is needed to spend funds.
+
+_Potential outcome: show up at this person's house or place of business with a $5 wrench._
 
 If wallets self-blinded their own seed phrases, it would be possible for the Coordinator software to keep track of the account map, and split it using Shamir'S Secret Sharing Scheme.
 It would then be possible to have something like a `3-of-5` on-chain p2wsh multisig, where perhaps `2-of-n` (where n is a large number and unrelated to the `3-of-5` in the on-chain multisig) Shamir Shards are needed to recover the account map.
 If an unauthorized party gained access to a single seed phrase, they'd know nothing about what it protects.
+
+A further version could have individual hardware wallets sign the account map before deleting the BIP32 path, so that when the account map is replayed they can know with certainty that they previously approved this account map (in the case of secure receive address validation for example).
+A simpler scheme (similar to what BitBox02 already does) would be for the hardware wallet to store only a hash digest of the account map, and when a given account map is presented it would validate that this matches what was previously saved.
+While simpler, the latter approach is difficult to transfer over to a new device should an existing device fail or be destroyed.
 
 Even without blinding *all* seed phrases, this scheme still provides lots of value by allowing 1 seed phrase holder to participate 
 
