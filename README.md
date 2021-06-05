@@ -307,8 +307,5 @@ As of late May 2021, here is the compatibility of popular multisig hardware wall
 TODO: test compatibility with Trezor, Passport, Fully Noded / Gordian, Sparrow, and others.
 
 ## References
-Blockchain commons thread on nosy signatories: 
-<https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37>
-
-Original tweet-storm with the idea for this: 
-<https://twitter.com/mflaxman/status/1329535324607885324>
+* [Blockchain commons thread on nosy signatories](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37)
+* [Original tweet-storm with the idea for this](https://twitter.com/mflaxman/status/1329535324607885324)
