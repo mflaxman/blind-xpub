@@ -211,6 +211,9 @@ cHNidP8BAFUCAAAAATVN3DO8pS2XldfMpqzYjO0nKmsg7qM9SyGfY3py0O5nAAAAAAD9////ASWGAQAA
 ```
 (easier to view screenshot [here](multiwallet_sellx12_blinded_spend.png))
 
+This transaction was then broadcast on the testnet blockchain here: 
+<https://blockstream.info/testnet/tx/1ae50b064c72ab0d71207693814519016755a89444f3d42ea4d32dad3b307536>
+
 ## Sign Transaction Using Regular Key
 This is standard, so we will only demonstrate it quickly with `multiwallet.py`.
 You could use any hardware wallet that had the seed `invest invest invest...` (x12).
