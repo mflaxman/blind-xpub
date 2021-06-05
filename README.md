@@ -269,15 +269,15 @@ Under current best-practices, if a bad actor gains unauthorized access to a sing
 
 _Potential outcome: show up at this person's house or place of business with a $5 wrench._
 
-If wallets self-blinded their own seed phrases, it would be possible for the Coordinator software to keep track of the account map, and split it using Shamir'S Secret Sharing Scheme.
+If wallets self-blinded their own seed phrases, it would be possible for the Coordinator software to keep track of the account map, and split it using Shamir's Secret Sharing Scheme.
 It would then be possible to have something like a `3-of-5` on-chain p2wsh multisig, where perhaps `2-of-n` (where n is a large number and unrelated to the `3-of-5` in the on-chain multisig) Shamir Shards are needed to recover the account map.
 If an unauthorized party gained access to a single seed phrase, they'd know nothing about what it protects.
 
 A further version could have individual hardware wallets sign the account map before deleting the BIP32 path, so that when the account map is replayed they can know with certainty that they previously approved this account map (in the case of secure receive address validation for example).
-A simpler scheme (similar to what BitBox02 already does) would be for the hardware wallet to store only a hash digest of the account map, and when a given account map is presented it would validate that this matches what was previously saved.
+A simpler scheme (similar to what BitBox02 already does) would be for the hardware wallet to store only a hash digest of the account map, and when the account map is replayed from the Coordinator it would validate that this matches what was previously saved.
 While simpler, the latter approach is difficult to transfer over to a new device should an existing device fail or be destroyed.
 
-Even without blinding *all* seed phrases, this scheme still provides lots of value by allowing 1 seed phrase holder to participate 
+Even without blinding *all* seed phrases, this scheme still provides lots of value by allowing 1 seed phrase holder to participate in a multisig wallet as a backup, without knowing what they're protecting.
 
 ### Compatibility
 
