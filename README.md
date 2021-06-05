@@ -104,7 +104,68 @@ For the avoidance of any doubt, [here is a screenshot assuming you have access t
 
 ## Create Account Map
 
-In our case, we take the regular seed A xpub and the blinded seed B xpub and combine them into a 1-of-2 p2wsh sortedmulti:
+In our case, we take the regular seed phrase A xpub (see [Seed Phrase A](#Seed-Phrase-A) above) and the blinded Seed Phrase B xpub we just calculated (see [Blind 1 Seed Phrase](#Blind-1-Seed-Phrase) above) and combine them into a `1-of-2 p2wsh sortedmulti` using Specter-Desktop:
+
+TODO: add Specter-Desktop screenshot.
+
+### buidl Verification
+
+We run the following code in python:
 ```
-TODO: continue from here.
+from buidl.descriptor import P2WSHSortedMulti
+
+quorum_m = 1
+key_records = [
+    {
+        # investx12 - regular path
+        "xfp": "aa917e75",
+        "path": "m/48h/1h/0h/2h",
+        "xpub_parent": "tpubDEZRP2dRKoGRJnR9zn6EoLouYKbYyjFsxywgG7wMQwCDVkwNvoLhcX1rTQipYajmTAF82kJoKDiNCgD4wUPahACE7n1trMSm7QS8B3S1fdy",
+        "account_index": 0,
+    },
+    {
+        # sellx12 - BLINDED path
+        "xfp": "2553c4b8",
+        "path": "m/48h/1h/0h/2h/2046266013/1945465733/1801020214/1402692941",
+        "xpub_parent": "Vpub5uMrp2GYpnHN8BkjvXpP71TuZ8BDqu61PPcwEKSzE9Mcuow727mUJNsDsKdzAiupHXea5F7ZxD9SaSQvbr1hvpNjrijJQ2J46VQjc5yEcm8",
+        "account_index": 0,
+    },
+]
+p2wsh_sortedmulti_obj = P2WSHSortedMulti(quorum_m, key_records)
+print(p2wsh_sortedmulti_obj)
 ```
+
+Results:
+```
+wsh(sortedmulti(1,[aa917e75/48h/1h/0h/2h]tpubDEZRP2dRKoGRJnR9zn6EoLouYKbYyjFsxywgG7wMQwCDVkwNvoLhcX1rTQipYajmTAF82kJoKDiNCgD4wUPahACE7n1trMSm7QS8B3S1fdy/0/*,[2553c4b8/48h/1h/0h/2h/2046266013/1945465733/1801020214/1402692941]tpubDNVvpMhdGTmQg1AT6muju2eUWPXWWAtUSyc1EQ2MxJ2s97fMqFZQbpzQM4gU8bwzfFM7KBpSXRJ5v2Wu8sY2GF5ZpXm3qy8GLArZZNM1Wru/0/*))#0lfdttke
+```
+
+## Get Receive Address
+
+### Specter-Desktop
+
+Powered by Bitcoin Core, we see the following address:
+TODO: add screenshot
+
+### buidl Validation
+```
+>>> p2wsh_sortedmulti_obj.get_address(0)
+'tb1q6d6frh07dl8djmnv48aqelp6r0mejzh7qgauw7yx5qcjehvcfnsqxc6lly'
+```
+
+Using a testnet faucet, we send some TBTC to this address:
+<https://blockstream.info/testnet/tx/67eed0727a639f214b3da3ee206b2a27ed8cd8aca6ccd795972da5bc33dc4d35>
+
+## Sign Transaction Using Blinded Key
+We will return the funds to this testnet faucet address:
+`mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt`
+
+### Specter-Desktop
+
+Specter-Desktop builds us an unsigned PSBT:
+```
+cHNidP8BAFUCAAAAATVN3DO8pS2XldfMpqzYjO0nKmsg7qM9SyGfY3py0O5nAAAAAAD9////ASWGAQAAAAAAGXapFDRKD0jKFQ7CuQOBdmC5tosTpnAmiKwAAAAAAAEAlAIAAAABuyYafpgmVz6R0nydIwQhLhK9wyq+MdzpZ2eYwfXFb0sAAAAAFxYAFNeBq/yMVx5pEh75uUCeQEenBts2/v///wKghgEAAAAAACIAINN0kd3+b87Zbmyp+gz8Ohv3mQr+AjvHeIagMSzdmEzgRxk5AAAAAAAWABSximIn3PYA1OH6B/cCwK+yIu8LAFKOHgABASughgEAAAAAACIAINN0kd3+b87Zbmyp+gz8Ohv3mQr+AjvHeIagMSzdmEzgAQVHUSEDELg0dGMOr13U7TYY21H1qqau+SG9gzPtgUOqbqcdjU0hAz8uRBD7XX0++TpuqGBjHSbo0olYV8KAZj3e9ovghmHxUq4iBgMQuDR0Yw6vXdTtNhjbUfWqpq75Ib2DM+2BQ6pupx2NTSwlU8S4MAAAgAEAAIAAAACAAgAAgJ2K93mFc/VzNmNZa01lm1MAAAAAAAAAACIGAz8uRBD7XX0++TpuqGBjHSbo0olYV8KAZj3e9ovghmHxHKqRfnUwAACAAQAAgAAAAIACAACAAAAAAAAAAAAAAA==
+```
+
+## Sign Transaction Using Regular Key
+This is standard, so we will only demonstrate it quickly with multiwallet.
