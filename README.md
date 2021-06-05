@@ -1,4 +1,4 @@
-# Blinding A Seed Phrase Using BIP32 Paths
+# Blinding A Seed Phrase Using Massive BIP32 Paths
 
 ## Intro
 
@@ -119,7 +119,7 @@ For the avoidance of any doubt, [here is a screenshot assuming you have access t
 In our case, we take the regular seed phrase A xpub (see [Seed Phrase A](#Seed-Phrase-A) above) and the blinded Seed Phrase B xpub we just calculated (see [Blind 1 Seed Phrase](#Blind-1-Seed-Phrase) above) and combine them into a `1-of-2 p2wsh sortedmulti` using Specter-Desktop:
 ![image](1of2_p2wsh_sortedmulti.png)
 
-That will also generate [this account map PDF backup](investx12_sellx12 blinded_backup.pdf) (account map only [here](account-map.png)).
+That will also generate [this account map PDF backup](investx12_sellx12_blinded_backup.pdf) (account map only [here](account_map.png)).
 
 ### buidl Verification
 
@@ -178,10 +178,13 @@ We will return the funds to the testnet faucet address:
 ### Specter-Desktop
 
 Specter-Desktop builds us an unsigned PSBT to sweep these funds:
+![image](specter_desktop_unsigned.png)
+
+The corresponding PSBT it displays is:
 ```
 cHNidP8BAFUCAAAAATVN3DO8pS2XldfMpqzYjO0nKmsg7qM9SyGfY3py0O5nAAAAAAD9////ASWGAQAAAAAAGXapFDRKD0jKFQ7CuQOBdmC5tosTpnAmiKwAAAAAAAEAlAIAAAABuyYafpgmVz6R0nydIwQhLhK9wyq+MdzpZ2eYwfXFb0sAAAAAFxYAFNeBq/yMVx5pEh75uUCeQEenBts2/v///wKghgEAAAAAACIAINN0kd3+b87Zbmyp+gz8Ohv3mQr+AjvHeIagMSzdmEzgRxk5AAAAAAAWABSximIn3PYA1OH6B/cCwK+yIu8LAFKOHgABASughgEAAAAAACIAINN0kd3+b87Zbmyp+gz8Ohv3mQr+AjvHeIagMSzdmEzgAQVHUSEDELg0dGMOr13U7TYY21H1qqau+SG9gzPtgUOqbqcdjU0hAz8uRBD7XX0++TpuqGBjHSbo0olYV8KAZj3e9ovghmHxUq4iBgMQuDR0Yw6vXdTtNhjbUfWqpq75Ib2DM+2BQ6pupx2NTSwlU8S4MAAAgAEAAIAAAACAAgAAgJ2K93mFc/VzNmNZa01lm1MAAAAAAAAAACIGAz8uRBD7XX0++TpuqGBjHSbo0olYV8KAZj3e9ovghmHxHKqRfnUwAACAAQAAgAAAAIACAACAAAAAAAAAAAAAAA==
 ```
-(image version [here](psbt.png))
+(PSBT image version for airgap signers [here](psbt.png))
 
 ### Buidl
 
@@ -274,8 +277,9 @@ As of late May 2021, here is the compatibility of popular multisig hardware wall
 | multiwallet.py | √                     | √                 |
 | Keystone       | √                     | X                 |
 | BitBox02       | √                     | X                 |
-| Coldcard       | X                     | X                 |
+| Coldcard       | X ([screenshot](coldcard_fail.jpeg))                     | X                 |
 
+TODO: test compatibility with Trezor, Passport, Fully Noded / Gordian, Sparrow, and others.
 
 ## References
 Blockchain commons thread on nosy signatories: 
