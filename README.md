@@ -96,11 +96,11 @@ This looks better in the CLI app with nice colors:
 
 ### Verification
 
-You can validate on this on an airgap computer using [Ian Coleman’s popular open-source tool](https://iancoleman.io/bip39/) (you may also need to use [Jameson Lopp's xpub converter for SLIP132 version byte encoding](https://jlopp.github.io/xpub-converter/)).
+You can validate on this on an airgap computer using [Ian Coleman’s popular open-source tool](https://iancoleman.io/bip39/) and [Jameson Lopp's xpub converter for SLIP132 version byte encoding](https://jlopp.github.io/xpub-converter/).
 
-[Here is a screenshot of that tool proving accuracy assuming you don't have access to your semi-trusted third party's seed phrase](blinding_from_vpub.png).
+[Here is a screenshot of proving accuracy of this derivation path](blinding_from_vpub.png).
 
-For the avoidance of any doubt, [here is a screenshot assuming you do have access to their seed phrase](https://gist.github.com/mflaxman/fd58e3385e60feb32a18fe79e3e9d2da/raw/0875fd6f14288d52689a045572dab4404d80bf27/blinding_from_seed_phrase.png) (SLIP132 version byte encoding [here](blinded_tpub_to_vpub.png).
+For the avoidance of any doubt, [here is a screenshot assuming you have access to their seed phrase](blinding_from_seed_phrase.png) (SLIP132 version byte encoding [here](blinded_tpub_to_vpub.png).
 
 ## Create Account Map
 
