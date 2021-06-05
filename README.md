@@ -21,7 +21,7 @@ At the end, we'll discuss implications for blinding up to `m` seed phrases.
 ## Buidl Setup for Verification (not required)
 Easiest way
 ```
-$ pip install buidl-python && python3
+$ pip3 install buidl && python3
 ```
 
 More secure way:
