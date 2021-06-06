@@ -300,14 +300,15 @@ In the previous example, we were able to blind `1` xpub without trusting the har
 Going forward, we'll refer to this as "second-party blinding", since the first party created the seed phrase and the second party blinded it.
 
 However, the same scheme could be applied to *every* seed phrase in our own quorum, provided we trust the hardware wallet and/or the person generating the seed phrase (ourselves).
+We'll refer to this as "first-party blinding."
 
-This means that if an unauthorized party gains access to a single seed phrase (perhaps a single secure location is compromised), they learn *nothing* about what it protects nor what threshold is required for access.
+This means that if an unauthorized person gains access to a single seed phrase (perhaps a single secure location is compromised), they learn *nothing* about what it protects nor what threshold is required for access.
 
 In the future, wallets could use their own CSPRNG to self-blind their own seed phrases (eliminating one interactive setup step), and then the Coordinator software could be tasked with keeping track of the account map.
 The coordinator could split it using Shamir's Secret Sharing Scheme. 
 It would then be possible to have something like a `3-of-5` on-chain `p2wsh` multisig, where perhaps `2-of-n` (where n is a large number and unrelated to the `3-of-5` in the on-chain multisig) Shamir Shards are needed to recover the account map.
 The hardware wallet could even validate these Shamir Shares, since it's already being trusted to delete the BIP32 paths it generated on setup.
-**Under this construction, if an unauthorized party gained access to any single seed phrase they'd learn nothing about what it protects.**
+**Under this construction, if an unauthorized person gained access to any single seed phrase they'd learn nothing about what it protects.**
 
 Even better, a further version could have individual hardware wallets sign the account map before deleting the BIP32 path, so that when the account map is replayed they can know with certainty that they previously approved this account map (in the case of secure receive address validation for example).
 A simpler scheme (similar to what BitBox02 already does) would be for the hardware wallet to store only a hash digest of the account map, and when the account map is replayed from the Coordinator it would validate that this matches what was previously saved.
