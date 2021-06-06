@@ -263,7 +263,7 @@ At the time of seed generation up until revealing the account map (with secret B
 
 
 If the HODLer of this seed phrase were malicious (or compelled by a government), they would not be able to reveal any privacy information.
-Also, because this is built on top of existing BIP32 paths, it is *already* compatible with many existing hardware walelts an software libraries.
+Also, because this is built on top of existing BIP32 paths, it is *already* compatible with many existing hardware wallets and software libraries.
 
 Of course, this scheme requires that the blinded key holder be able to get access to the account map in the event they are needed for recovery.
 Presumably, this tradeoff is well worth it to the original key-holder if they are still alive but have lost access to their seed phrase.
