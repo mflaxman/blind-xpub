@@ -332,6 +332,7 @@ It's important to note that in the case of second-party blinding, the second-par
 To put this in practical terms, an "Uncle-Jim bitcoiner" might give out the same xpub to dozens of friends/family members who wish to include them as part of their multisig quorum.
 Since each one has their own BIP32 path that is collision-resistant by design, there is theoretically no privacy leakage.
 Of course, to be safe the best practice for Uncle Jim would be to give out a different xpub to each recipient using hardened derivation.
+
 It would even be possible (though not required) for this seed phrase to be the very same one Uncle Jim uses to protect their personal bitcoin, meaning no new setup ceremony nor backup would be required.
 Relying more heavily on one system might further incentivize Uncle Jim to improve his own seed phrase security by using a metal plate backup, perhaps including a passphrase, and/or using a protocol like [SLIP39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
 
