@@ -299,7 +299,7 @@ TODO: test compatibility with Trezor, Passport, Fully Noded / Gordian, Sparrow, 
 In the previous example, we were able to blind `1` xpub without trusting the hardware wallet and/or person generating the seed phrase to not peak/save the BIP32 path.
 Going forward, we'll refer to this as "second-party blinding", since the first party created the seed phrase and the second party blinded it.
 
-However, the same scheme could be applied to *every* seed phrase in our own qourum, provided we trust the hardware wallet and/or the person generating the seed phrase (ourselves).
+However, the same scheme could be applied to *every* seed phrase in our own quorum, provided we trust the hardware wallet and/or the person generating the seed phrase (ourselves).
 
 This means that if an unauthorized party gains access to a single seed phrase (perhaps a single secure location is compromised), they learn *nothing* about what it protects nor what threshold is required for access.
 
