@@ -306,7 +306,8 @@ This means that if an unauthorized person gains access to a single seed phrase (
 
 In the future, wallets could use their own CSPRNG to self-blind their own seed phrases (eliminating one interactive setup step), and then the Coordinator software could be tasked with keeping track of the account map.
 The coordinator could split it using Shamir's Secret Sharing Scheme. 
-It would then be possible to have something like a `3-of-5` on-chain `p2wsh` multisig, where perhaps `2-of-n` (where n is a large number and unrelated to the `3-of-5` in the on-chain multisig) Shamir Shards are needed to recover the account map.
+It would then be possible to have something like a `3-of-5` on-chain `p2wsh` multisig, where perhaps `2-of-n` Shamir Shards are needed to recover the account map.
+In this case, `n` is a user-configurable large number and unrelated to the `3-of-5` in the on-chain multisig.
 The hardware wallet could even validate these Shamir Shares, since it's already being trusted to delete the BIP32 paths it generated on setup.
 **Under this construction, if an unauthorized person gained access to any single seed phrase they'd learn nothing about what it protects.**
 
