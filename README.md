@@ -278,7 +278,7 @@ The safe deposit box is setup to automatically transfer to the HODLer's estate (
 In this situation, if a banker drills the safe deposit box, they would be unable to tell what they gained access to (amount and/or quorum).
 
 Of course this is just one construction out of nearly infinite possibilities.
-Another might be to blind the heir's key (so that they don't know what they're inheriting) and give the account map to a lawyer (who is bound by attorney-client privilege).
+Another might be to blind the heir's key (so that they don't know what they're inheriting) and give the account map to a lawyer (who is bound by attorney-client privilege and also has **no private key material**).
 
 ### Compatibility
 
