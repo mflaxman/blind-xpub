@@ -6,9 +6,9 @@ Multisig adoption has the power to reduce hacks/theft/loss in the bitcoin space,
 This could increase adoption, as HODLers might be comfortable storing a greater percentage of their net worth in bitcoin.
 
 There are generally three main barriers to multisig adoption:
-* Additional complexity
-* Having multiple secure locations
-* Privacy leakage
+* Additional Complexity
+* Having Multiple Secure Locations
+* Privacy Leakage
 
 ### Complexity
 
@@ -21,6 +21,15 @@ There is also inherent ambiguity under current best practices.
 Should each seed phrase contain the xpubs/paths of all other seed phrases?
 This account map is required to validate a recieve address, but also leaks privacy (more below).
 Creating an explicit [trust boundary](https://en.wikipedia.org/wiki/Trust_boundary) separates privacy information (account map) from security information (private key material, in this case BIP39 seed phrases).
+
+### Having Multiple Secure Locations
+
+While `4-of-7` multisig sounds great, how many people have access to `7` secure locations with around the clock security?
+
+A scheme that enables 1 (or more) semi-trusted collaborative custodians (e.g. a lawyer, accountant, heir, close friend, "uncle Jim" bitcoiner, collaborative custody service, etc) to participate in a multisig quorum with *zero* knowledge of what they're protecting mitigates this concern (and can supply geographic/jurisdictional diversity).
+
+Under current best-practices, a holder of a BIP39 seed phrase used in a `4-of-7` multisig wallet may be able to learn substantial information about what they're protecting.
+While [multisig is strictly superior to Shamir's Secret Sharing Scheme](https://btcguide.github.io/why-multisig-advanced#shamirs-secret-sharing-scheme), having multiple seeds floating around that may convey information about what they're protecting introduces new risks (and provides a choke-point for governments to gain access to information about private holdings).
 
 ### Privacy Leakage
 
@@ -37,12 +46,3 @@ Users who instead use single-sig with a BIP39 seed words and a passphrase can ma
 Of course it's imortant to keep in mind that from a security perspective, loss of the BIP39 seed words *or* the passphrase means total loss of funds.
 
 This proposal **completely eliminates** this concern.
-
-### Having Multiple Secure Locations
-
-While `4-of-7` multisig sounds great, how many people have access to `7` secure locations with around the clock security?
-
-A scheme that enables 1 (or more) semi-trusted collaborative custodians (e.g. a lawyer, accountant, heir, close friend, "uncle Jim" bitcoiner, collaborative custody service, etc) to participate in a multisig quorum with *zero* knowledge of what they're protecting mitigates this concern (and can supply geographic/jurisdictional diversity).
-
-Under current best-practices, a holder of a BIP39 seed phrase used in a `4-of-7` multisig wallet may be able to learn substantial information about what they're protecting.
-While [multisig is strictly superior to Shamir's Secret Sharing Scheme](https://btcguide.github.io/why-multisig-advanced#shamirs-secret-sharing-scheme), having multiple seeds floating around that may convey information about what they're protecting introduces new risks (and provides a choke-point for governments to gain access to information about private holdings).
