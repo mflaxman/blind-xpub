@@ -1,4 +1,4 @@
-# Blinding A Seed Phrase Using Massive BIP32 Paths
+# Blinding A Seed Phrase Using Secret BIP32 Paths
 
 ## Table of Contents
 * [Intro](#intro)
