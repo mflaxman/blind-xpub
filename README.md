@@ -31,19 +31,18 @@ For simplicity, we are going to blind just `1` seed phrase in a `1-of-2`, but it
 At the end, we'll discuss implications for blinding all `m` seed phrases.
 
 ## Buidl Setup for Verification (not required)
-Easiest way
+Easiest way (this should not throw an error):
 ```
 $ pip3 install buidl && python3
 >>> from buidl import *
 ```
-(this should not throw an error)
 
-More secure way (because `buidl` has no dependencies and is designed for airgap use, you don't actually need to install it):
+More secure way (this should not throw an error):
 ```
 $ git clone https://github.com/buidl-bitcoin/buidl-python.git && cd buidl-python && python3
 >>> from buidl import *
 ```
-(this should not throw an error)
+(because `buidl` has no dependencies and is designed for airgap use, you don't actually need to install it)
 
 
 As these verification steps can be performed with other open-source libraries, and we'll call out to them as well.
