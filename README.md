@@ -352,8 +352,8 @@ Each seed phrase (in plain text) is stored alongside an encrypted copy of the ac
 ## Seed Phrase Reuse
 
 It's important to note that in the case of second-party blinding, the second-party could reuse the same seed phrase in nearly infinite trust-minimized setups.
-To put this in practical terms, an "Uncle-Jim bitcoiner" might give out the same xpub to dozens of friends/family members who wish to include them as part of their multisig quorum.
-Since each one has their own BIP32 path that is collision-resistant by design, there is theoretically no privacy leakage.
+To put this in practical terms, an "Uncle-Jim bitcoiner" might give out the same xpub to dozens of friends/family members who wish to include "Uncle Jim" in their multisig quorum for emergency recovery, while preserving privacy.
+Since each blinded xpub has its own BIP32 path that is collision-resistant by design, there is theoretically no privacy leakage.
 Of course, to be safe the best practice for Uncle Jim would be to give out a different xpub to each recipient using hardened derivation.
 
 It would even be possible (though not required) for this seed phrase to be the very same one Uncle Jim uses to protect their personal bitcoin, meaning no new setup ceremony nor backup would be required.
