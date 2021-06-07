@@ -1,0 +1,27 @@
+{
+  "name": "Blinded Wallet",
+  "addressType": "P2WSH",
+  "network": "testnet",
+  "client":  {
+    "type": "public"
+  },
+  "quorum": {
+    "requiredSigners": 1,
+    "totalSigners": 2
+  },
+  "extendedPublicKeys": [
+        {
+        "name": "seed a regular",
+        "bip32Path": "m/48'/1'/0'/2'",
+        "xpub": "tpubDEZRP2dRKoGRJnR9zn6EoLouYKbYyjFsxywgG7wMQwCDVkwNvoLhcX1rTQipYajmTAF82kJoKDiNCgD4wUPahACE7n1trMSm7QS8B3S1fdy",
+        "xfp" : "aa917e75"
+        },
+    {
+        "name": "seed b blinded",
+        "bip32Path": "m/48'/1'/0'/2'/2046266013/1945465733/1801020214/1402692941",
+        "xpub": "tpubDNVvpMhdGTmQg1AT6muju2eUWPXWWAtUSyc1EQ2MxJ2s97fMqFZQbpzQM4gU8bwzfFM7KBpSXRJ5v2Wu8sY2GF5ZpXm3qy8GLArZZNM1Wru",
+        "xfp" : "2553c4b8"
+        }
+  ],
+  "startingAddressIndex": 0
+}

@@ -180,6 +180,11 @@ Bitcoin Core (via Specter-Desktop), provides the following address:
 'tb1q6d6frh07dl8djmnv48aqelp6r0mejzh7qgauw7yx5qcjehvcfnsqxc6lly'
 ```
 
+### Caravan Validation
+
+While outside the scope of this demo, it is possible to also generate watch-only addresses in [Caravan](https://unchained-capital.github.io/caravan/) using [this wallet configuration file](bitcoin-1-of-2-P2WSH-testing.json) ([screenshot](caravan_receive_address.png)).
+
+### Receive Bitcoin
 Using a testnet faucet, we send some tBTC to this address:
 <https://blockstream.info/testnet/tx/67eed0727a639f214b3da3ee206b2a27ed8cd8aca6ccd795972da5bc33dc4d35>
 
