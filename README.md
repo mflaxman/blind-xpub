@@ -16,8 +16,8 @@
 ## Intro
 In this scheme, we demonstrate using a large and randomly generated BIP32 path to blind a BIP39 seed in our multisig quorum.
 If an unauthorized party gains access to that BIP39 seed (and passphrase, if applicable), they would learn *nothing* about what it protects.
-We demonstrate that this proposal works today, is compatible with existing hardware wallets, and has implications for both enhanced privacy and trust-minimized collaborative key-holders.
-**TLDR: Moar multisig!**
+We demonstrate that this proposal works today, is compatible with existing hardware wallets, and has positive implications for both privacy and trust-minimized collaborative key-holders.
+**TLDR: Moar multisig for bitcoin!**
 
 This document focuses on the technical specifications of the blinding protocol.
 For more on why this matters, please see [this sub-document](WHY.md).
@@ -288,17 +288,31 @@ Another might be to blind the heir's key (so that they don't know what they're i
 
 ### Compatibility
 
-As of late May 2021, here is the compatibility of popular multisig hardware wallets:
+#### Signers (Hardware Wallets)
 
-| Device         | Co-Sign Standard Path | Sign Blinded Path |
-|----------------|-----------------------|-------------------|
-| Specter-DIY    | √                     | √                 |
-| multiwallet.py | √                     | √                 |
-| Keystone       | √                     | X                 |
-| BitBox02       | √                     | X                 |
-| Coldcard       | X ([screenshot](coldcard_fail.jpeg))                     | X                 |
+| Device                | Co-Sign Standard Path                | Sign Blinded Path |
+|-----------------------|--------------------------------------|-------------------|
+| Specter-DIY           | :white_check_mark:                   | √                 |
+| multiwallet.py        | √                                    | √                 |
+| Keystone              | √                                    | :x:               |
+| BitBox02              | √                                    | X                 |
+| Coldcard              | X ([screenshot](coldcard_fail.jpeg)) | X                 |
+| Trezor                | ?                                    | ?                 |
+| Passport              | ?                                    | ?                 |
+| Fully Noded / Gordian | ?                                    | ?                 |
+| Sparrow               | ?                                    | ?                 |
+TODO: fill in the blanks and add others
 
-TODO: test compatibility with Trezor, Passport, Fully Noded / Gordian, Sparrow, and others.
+#### Coordinator Softwares
+
+| Device           | Display Addresses     | Coordinate TX Signing |
+|------------------|-----------------------|-----------------------|
+| Specter-Desktop  | √                     | √                     |
+| Caravan          | √                     | X                     |
+| Sparrow          | ?                     | ?                     |
+| Fully Noded      | ?                     | ?                     |
+| Nunchuk          | ?                     | ?                     |
+TODO: fill in the blanks and add others
 
 ## First-Party Blinding
 
