@@ -1,4 +1,4 @@
-# Blinding A Seed Phrase Using Secret BIP32 Paths
+# Blinding A Seed Using Secret BIP32 Paths
 
 ## Table of Contents
 * [Intro](#intro)
@@ -14,7 +14,7 @@
 * [References](#references)
 
 ## Intro
-In this scheme, we demonstrate using large and randomly generated BIP32 path to blind a BIP39 seed in our multisig quorum.
+In this scheme, we demonstrate using a large and randomly generated BIP32 path to blind a BIP39 seed in our multisig quorum.
 If an unauthorized party gains access to that BIP39 seed (and passphrase, if applicable), they would learn *nothing* about what it protects.
 We demonstrate that this proposal works today, is compatible with existing hardware wallets, and has implications for both enhanced privacy and trust-minimized collaborative key-holders.
 **TLDR: Moar multisig!**
