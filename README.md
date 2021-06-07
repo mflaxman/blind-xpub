@@ -290,28 +290,28 @@ Another might be to blind the heir's key (so that they don't know what they're i
 
 #### Signers (Hardware Wallets)
 
-| Device                | Co-Sign Standard Path                | Sign Blinded Path |
-|-----------------------|--------------------------------------|-------------------|
-| Specter-DIY           | :white_check_mark:                   | √                 |
-| multiwallet.py        | √                                    | √                 |
-| Keystone              | √                                    | :x:               |
-| BitBox02              | √                                    | X                 |
-| Coldcard              | X ([screenshot](coldcard_fail.jpeg)) | X                 |
-| Trezor                | ?                                    | ?                 |
-| Passport              | ?                                    | ?                 |
-| Fully Noded / Gordian | ?                                    | ?                 |
-| Sparrow               | ?                                    | ?                 |
+| Device                | Co-Sign Standard Path                  | Sign Blinded Path |
+|-----------------------|----------------------------------------|-------------------|
+| Specter-DIY           | :white_check_mark:                     | :white_check_mark:|
+| multiwallet.py        | :white_check_mark:                     | :white_check_mark:|
+| Keystone              | :white_check_mark:                     | :x:               |
+| BitBox02              | :white_check_mark:                     | :x:               |
+| Coldcard              | :x: ([screenshot](coldcard_fail.jpeg)) | :x:               |
+| Trezor                | :grey_question:                        | :grey_question:   |
+| Passport              | :grey_question:                        | :grey_question:   |
+| Fully Noded / Gordian | :grey_question:                        | :grey_question:   |
+| Sparrow               | :grey_question:                        | :grey_question:   |
 TODO: fill in the blanks and add others
 
 #### Coordinator Softwares
 
 | Device           | Display Addresses     | Coordinate TX Signing |
 |------------------|-----------------------|-----------------------|
-| Specter-Desktop  | √                     | √                     |
-| Caravan          | √                     | X                     |
-| Sparrow          | ?                     | ?                     |
-| Fully Noded      | ?                     | ?                     |
-| Nunchuk          | ?                     | ?                     |
+| Specter-Desktop  | :white_check_mark:    | :white_check_mark:    |
+| Caravan          | :white_check_mark:    | :x:                   |
+| Sparrow          | :grey_question:       | :grey_question:       |
+| Fully Noded      | :grey_question:       | :grey_question:       |
+| Nunchuk          | :grey_question:       | :grey_question:       |
 TODO: fill in the blanks and add others
 
 ## First-Party Blinding
