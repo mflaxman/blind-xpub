@@ -9,6 +9,7 @@
 * [Get Receive Address](#get-receive-address)
 * [Sign Transaction](#sign-transaction)
 * [What We Accomplished](#what-we-accomplished)
+* [Compatibility](#compatibility)
 * [First Party Blinding](#first-party-blinding)
 * [Seed Phrase Reuse](#seed-phrase-reuse)
 * [References](#references)
@@ -286,9 +287,11 @@ In this situation, if a banker drills the safe deposit box, they would be unable
 Of course this is just one construction out of nearly infinite possibilities.
 Another might be to blind the heir's key (so that they don't know what they're inheriting) and give the account map to a lawyer (who is bound by attorney-client privilege and also has **no private key material**).
 
-### Compatibility
+## Compatibility
 
-#### Signers (Hardware Wallets)
+What's amazing about this protocol, is that because it takes advantage of existing standards it already works on the bitcoin network!
+
+### Signers (Hardware Wallets)
 
 | Device                | Co-Sign Standard Path                  | Sign Blinded Path |
 |-----------------------|----------------------------------------|-------------------|
@@ -304,7 +307,7 @@ Another might be to blind the heir's key (so that they don't know what they're i
 
 TODO: fill in the blanks and add others
 
-#### Coordinator Softwares
+### Coordinator Softwares
 
 | Device           | Display Addresses     | Coordinate TX Signing |
 |------------------|-----------------------|-----------------------|
