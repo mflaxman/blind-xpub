@@ -25,7 +25,7 @@ For more on why this matters, please see [this sub-document](WHY.md).
 
 ## Tech Overview
 
-For this demo, we'll use [Specter-Desktop](https://github.com/cryptoadvance/specter-desktop/) (powered by Bitcoin Core) as it's the de-facto standard for almost all new soverign multisig users today.
+For this demo, we'll use [Specter-Desktop](https://github.com/cryptoadvance/specter-desktop/) (powered by Bitcoin Core) as it's the de-facto standard for almost all new sovereign multisig users today.
 This should work for any Coordinator software that supports modern multisig standards ([account maps](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) and [PSBTs](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki)).
 We'll also duplicate the code in [buidl](https://github.com/buidl-bitcoin/buidl-python) as it's a no-dependency FOSS bitcoin implementation that provides full support for every step of the blinding protocol.
 For simplicity, we are going to blind just `1` seed phrase in a `1-of-2`, but it should be obvious how to expand this to a `2-of-3`, `3-of-5`, or any other quorum.
@@ -193,7 +193,7 @@ Using a testnet faucet, we send some tBTC to this address:
 ## Sign Transaction
 To spend from this multisig, *both* of the following are required:
 1. One seed phrase - can be either A or B
-1. The complete oaccount map - this covers **all** seeds used in this multisig wallet, even if they're not used to co-sign the given transaction
+1. The complete account map - this covers **all** seeds used in this multisig wallet, even if they're not used to co-sign the given transaction
 
 We will return the funds to the testnet faucet address:
 `mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt`
@@ -307,7 +307,7 @@ What's amazing about this protocol, is that because it takes advantage of existi
 
 TODO: fill in the blanks and add others
 
-### Coordinator Softwares
+### Coordinator Software
 
 | Device           | Display Addresses     | Coordinate TX Signing |
 |------------------|-----------------------|-----------------------|
