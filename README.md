@@ -301,6 +301,7 @@ Another might be to blind the heir's key (so that they don't know what they're i
 | Passport              | :grey_question:                        | :grey_question:   |
 | Fully Noded / Gordian | :grey_question:                        | :grey_question:   |
 | Sparrow               | :grey_question:                        | :grey_question:   |
+
 TODO: fill in the blanks and add others
 
 #### Coordinator Softwares
@@ -312,6 +313,7 @@ TODO: fill in the blanks and add others
 | Sparrow          | :grey_question:       | :grey_question:       |
 | Fully Noded      | :grey_question:       | :grey_question:       |
 | Nunchuk          | :grey_question:       | :grey_question:       |
+
 TODO: fill in the blanks and add others
 
 ## First-Party Blinding
