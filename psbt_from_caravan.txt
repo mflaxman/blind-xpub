@@ -1,0 +1,39 @@
+$ python3 multiwallet.py 
+Welcome to multiwallet, the stateless multisig bitcoin wallet.
+This tool is free and there is NO WARRANTY OF ANY KIND.
+You are currently in SAFE mode.
+Type help or ? to list commands.
+
+(₿) send
+Paste in your account map (AKA output record): wsh(sortedmulti(1,[aa917e75/48h/1h/0h/2h]tpubDEZRP2dRKoGRJnR9zn6EoLouYKbYyjFsxywgG7wMQwCDVkwNvoLhcX1rTQipYajmTAF82kJoKDiNCgD4wUPahACE7n1trMSm7QS8B3S1fdy/0/*,[2553c4b8/48h/1h/0h/2h/2046266013/1945465733/1801020214/1402692941]tpubDNVvpMhdGTmQg1AT6muju2eUWPXWWAtUSyc1EQ2MxJ2s97fMqFZQbpzQM4gU8bwzfFM7KBpSXRJ5v2Wu8sY2GF5ZpXm3qy8GLArZZNM1Wru/0/*))#0lfdttke
+Paste partially signed bitcoin transaction (PSBT) in base64 form: cHNidP8BAFUBAAAAAbZ19GYHesFFVqG/txxfyyZxuHRM8cYDNii1ZddwY0TpAAAAAAD/////AZiFAQAAAAAAGXapFDRKD0jKFQ7CuQOBdmC5tosTpnAmiKwAAAAAAAEBKxyGAQAAAAAAIgAgjGr/ekJtvmo4sNUEHRtL4/x7zXXsjMlnSmh5+4k53dIBBUdRIQMmcKL2SvbjNv0tfNMb5lAVMUdYcFtrGzumqAhjkGUjsCED4kbV2WrkdoSCH0CE3kyW/KxqT2XA+IJtHOuRkos/tjZSriIGAyZwovZK9uM2/S180xvmUBUxR1hwW2sbO6aoCGOQZSOwLCVTxLgwAACAAQAAgAAAAIACAACAnYr3eYVz9XM2Y1lrTWWbUwAAAAABAAAAIgYD4kbV2WrkdoSCH0CE3kyW/KxqT2XA+IJtHOuRkos/tjYcqpF+dTAAAIABAACAAAAAgAIAAIAAAAAAAQAAAAAA
+Transaction appears to be a testnet transaction. Display as testnet? [Y/n]: 
+PSBT sends 99,736 sats to mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt with a fee of 132 sats (0.13% of spend)
+In Depth Transaction View? [y/N]: y
+DETAILED VIEW
+TXID: b858d7fa2a8db7b42181f4bb99a595c77d48232cc192e729a7971c46ba44f874
+--------------------------------------------------------------------------------
+1 Input(s):
+  Input #0
+    quorum: 1-of-2
+    bip32_derivs: [{'pubkey': '032670a2f64af6e336fd2d7cd31be65015314758705b6b1b3ba6a80863906523b0', 'master_fingerprint': '2553c4b8', 'path': "m/48'/1'/0'/2'/2046266013/1945465733/1801020214/1402692941/0/1", 'xpub': 'tpubDNVvpMhdGTmQg1AT6muju2eUWPXWWAtUSyc1EQ2MxJ2s97fMqFZQbpzQM4gU8bwzfFM7KBpSXRJ5v2Wu8sY2GF5ZpXm3qy8GLArZZNM1Wru'}, {'pubkey': '03e246d5d96ae47684821f4084de4c96fcac6a4f65c0f8826d1ceb91928b3fb636', 'master_fingerprint': 'aa917e75', 'path': "m/48'/1'/0'/2'/0/1", 'xpub': 'tpubDEZRP2dRKoGRJnR9zn6EoLouYKbYyjFsxywgG7wMQwCDVkwNvoLhcX1rTQipYajmTAF82kJoKDiNCgD4wUPahACE7n1trMSm7QS8B3S1fdy'}]
+    prev_txhash: e9446370d765b5283603c6f14c74b87126cb5f1cb7bfa15645c17a0766f475b6
+    prev_idx: 0
+    n_sequence: 4294967295
+    sats: 99,868
+    addr: tb1q334077jzdklx5w9s65zp6x6tu078hnt4ajxvje62dpulhzfemhfq3weejr
+    witness_script: OP_1 032670a2f64af6e336fd2d7cd31be65015314758705b6b1b3ba6a80863906523b0 03e246d5d96ae47684821f4084de4c96fcac6a4f65c0f8826d1ceb91928b3fb636 OP_2 OP_CHECKMULTISIG 
+--------------------------------------------------------------------------------
+1 Output(s):
+  Output #0
+    sats: 99,736
+    addr: mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt
+    addr_type: P2PKH
+    is_change: False
+Sign this transaction? [Y/n]: 
+Enter your full BIP39 seed phrase: sell sell sell sell sell sell sell sell sell sell sell sell
+Use a passphrase (advanced users only)? [y/N]: 
+
+Signed PSBT to broadcast:
+
+cHNidP8BAFUBAAAAAbZ19GYHesFFVqG/txxfyyZxuHRM8cYDNii1ZddwY0TpAAAAAAD/////AZiFAQAAAAAAGXapFDRKD0jKFQ7CuQOBdmC5tosTpnAmiKwAAAAAAAEBKxyGAQAAAAAAIgAgjGr/ekJtvmo4sNUEHRtL4/x7zXXsjMlnSmh5+4k53dIiAgMmcKL2SvbjNv0tfNMb5lAVMUdYcFtrGzumqAhjkGUjsEgwRQIhAL0Pra7Mw2Ea6nPj3LGaORmEuDAU4OqqPDX9R6BjwcZhAiB3GQsPz7RPwjq1rCU+mgbsOAoGN3pKHehDvuXuebGHpQEBBUdRIQMmcKL2SvbjNv0tfNMb5lAVMUdYcFtrGzumqAhjkGUjsCED4kbV2WrkdoSCH0CE3kyW/KxqT2XA+IJtHOuRkos/tjZSriIGAyZwovZK9uM2/S180xvmUBUxR1hwW2sbO6aoCGOQZSOwLCVTxLgwAACAAQAAgAAAAIACAACAnYr3eYVz9XM2Y1lrTWWbUwAAAAABAAAAIgYD4kbV2WrkdoSCH0CE3kyW/KxqT2XA+IJtHOuRkos/tjYcqpF+dTAAAIABAACAAAAAgAIAAIAAAAAAAQAAAAAA
