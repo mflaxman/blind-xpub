@@ -132,7 +132,7 @@ You can validate on this on an airgap computer using [Ian Coleman’s popular op
 
 ## Create Account Map
 
-In our case, we take the regular seed phrase A xpub (see [Seed Phrase A](#Seed-Phrase-A) above) and the blinded Seed Phrase B xpub we just calculated (see [Blind 1 Seed Phrase](#Blind-1-Seed-Phrase) above) and combine them into a `1-of-2 p2wsh sortedmulti` output descriptor using Bitcoin Core (via Specter-Desktop):
+In our case, we take the regular seed phrase A xpub (see [Seed Phrase A](#Seed-Phrase-A) above) and the blinded Seed Phrase B xpub we just calculated (see [Blind 1 Seed Phrase](#Blind-1-Seed-Phrase) above) and combine them into a `1-of-2 p2wsh sortedmulti` output descriptor using Bitcoin Core (via Specter-Desktop): 
 ![image](1of2_p2wsh_sortedmulti.png)
 
 That will also generate [this account map PDF backup](investx12_sellx12_blinded_backup.pdf) (account map only [here](account_map.png)).
