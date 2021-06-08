@@ -206,6 +206,10 @@ Bitcoin Core (via Specter-Desktop) creates an unsigned PSBT to sweep these funds
 The corresponding PSBT it displays is (image version for airgap signers [here](psbt.png)):
 ```
 cHNidP8BAFUCAAAAATVN3DO8pS2XldfMpqzYjO0nKmsg7qM9SyGfY3py0O5nAAAAAAD9////ASWGAQAAAAAAGXapFDRKD0jKFQ7CuQOBdmC5tosTpnAmiKwAAAAAAAEAlAIAAAABuyYafpgmVz6R0nydIwQhLhK9wyq+MdzpZ2eYwfXFb0sAAAAAFxYAFNeBq/yMVx5pEh75uUCeQEenBts2/v///wKghgEAAAAAACIAINN0kd3+b87Zbmyp+gz8Ohv3mQr+AjvHeIagMSzdmEzgRxk5AAAAAAAWABSximIn3PYA1OH6B/cCwK+yIu8LAFKOHgABASughgEAAAAAACIAINN0kd3+b87Zbmyp+gz8Ohv3mQr+AjvHeIagMSzdmEzgAQVHUSEDELg0dGMOr13U7TYY21H1qqau+SG9gzPtgUOqbqcdjU0hAz8uRBD7XX0++TpuqGBjHSbo0olYV8KAZj3e9ovghmHxUq4iBgMQuDR0Yw6vXdTtNhjbUfWqpq75Ib2DM+2BQ6pupx2NTSwlU8S4MAAAgAEAAIAAAACAAgAAgJ2K93mFc/VzNmNZa01lm1MAAAAAAAAAACIGAz8uRBD7XX0++TpuqGBjHSbo0olYV8KAZj3e9ovghmHxHKqRfnUwAACAAQAAgAAAAIACAACAAAAAAAAAAAAAAA==
+
+If you designate the transaction as a "Coldcard", [Caravan can generate the transaction for you as well](caravan_signed.png).
+This is possible because Caravan is using PSBT under-the-hood.
+
 ```
 
 ### Sign Using Blinded Key
@@ -309,13 +313,13 @@ TODO: fill in the blanks and add others
 
 ### Coordinator Software
 
-| Device           | Display Addresses     | Coordinate TX Signing |
-|------------------|-----------------------|-----------------------|
-| Specter-Desktop  | :white_check_mark:    | :white_check_mark:    |
-| Caravan          | :white_check_mark:    | :x:                   |
-| Sparrow          | :grey_question:       | :grey_question:       |
-| Fully Noded      | :grey_question:       | :grey_question:       |
-| Nunchuk          | :grey_question:       | :grey_question:       |
+| Device           | Display Addresses     | Coordinate TX Signing        |
+|------------------|-----------------------|------------------------------|
+| Specter-Desktop  | :white_check_mark:    | :white_check_mark:           |
+| Caravan          | :white_check_mark:    | :white_check_mark: (sort of) |
+| Sparrow          | :grey_question:       | :grey_question:              |
+| Fully Noded      | :grey_question:       | :grey_question:              |
+| Nunchuk          | :grey_question:       | :grey_question:              |
 
 TODO: fill in the blanks and add others
 
