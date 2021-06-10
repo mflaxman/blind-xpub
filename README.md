@@ -111,8 +111,12 @@ Note that we use [SLIP132](https://github.com/satoshilabs/slips/blob/master/slip
 
 ## Blind 1 Seed Phrase
 
-We blind seed B's xpub using `buidl`'s built in [multiwallet.py](https://twitter.com/mflaxman/status/1321503036724989952).
 Remember that Seed Phrase B is held by our trust-minimized third party.
+
+We blind seed B's xpub using `buidl`'s built in [multiwallet.py](https://twitter.com/mflaxman/status/1321503036724989952).
+We use the default, which is 124 bits of entropy from a CSPRNG.
+This should make brute-forcing impossible.
+A depth of 4 in our BIP32 path gives us `124` bits: `~(2^31)^4`
 
 ```
 $ python3 multiwallet.py 
