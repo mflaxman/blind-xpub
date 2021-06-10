@@ -15,13 +15,29 @@
 * [References](#references)
 
 ## Intro
+Bitcoin's multisig security model is a breakthrough in human ability to self-custody value.
+By comparison, it is impossible to 3-of-5 your gold.
+Multisig adoption has the power to reduce hacks/theft/loss in the bitcoin space by allowing users to make 1 (or more) catastrophic mistakes in their custody without putting funds at risk.
+
+Multisig has the power to increase bitcoin adoption, as HODLers might be comfortable storing a greater percentage of their net worth in bitcoin.
+
+### Privacy Leakage
+
+Standard/default BIP32 paths make it so that if a party gains unauthorized access to a BIP39 seed phrase (or even just an xpub), they may be able to learn about what funds it protects as well as the quorum required (`m-of-n`).
+
+Under current best-practices, if a bad actor gains unauthorized access to a single seed phrase they could learn the following by scanning the blockchain pubkeys in a `p2wsh`:
+* Yesterday that seed phrase was party to a massive transaction that (likely) had a large change ouput (note that this situation could be true even if this seed phrase did not produce a signature in the transaction)
+* The transaction that this seed phrase was a party to (which likely had large change sent back to itself) was a `2-of-3`, meaning that only 1 more seed phrase (along with the account map) is needed to spend funds.
+* It might also be possible to know that this entity engages in similiar transactions each weekday at say 4pm local time.
+
+_Potential outcome: show up at this person's house or place of business with a $5 wrench._
+
+
+### Solution
+
 In this scheme, we demonstrate using a large and randomly generated BIP32 path to blind a BIP39 seed (or more specifically the corresponding xpub) in a multisig quorum.
 If an unauthorized party gains access to that BIP39 seed (and passphrase, if applicable), they learn *nothing* about what it protects.
 We demonstrate that this proposal works today, is compatible with existing multisig hardware wallets, and has positive implications for both privacy and trust-minimized collaborative key-holders.
-**TLDR: Moar multisig for bitcoin!**
-
-This document focuses on the technical specifications of the blinding protocol.
-For more on why this matters, please see [here](WHY.md).
 
 ## Tech Overview
 
@@ -364,6 +380,12 @@ Of course, to be safe the best practice for Uncle Jim would be to give out a dif
 
 It would even be possible (though not required) for this seed phrase to be the very same one Uncle Jim uses to protect their personal bitcoin, meaning no new setup ceremony nor backup would be required.
 Relying more heavily on one system might further incentivize Uncle Jim to improve his own seed phrase security by using a metal plate backup, perhaps including a passphrase, and/or using a protocol like [SLIP39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
+
+### Having Multiple Secure Locations
+
+While `4-of-7` multisig sounds great in theory, how many people have access to `7` safe locations with around the clock security?
+
+By using a scheme that enables 1 (or more) semi-trusted collaborative custodians (e.g. a lawyer, accountant, heir, close friend, "uncle Jim" bitcoiner, collaborative custody service, etc) to participate in a multisig quorum with *zero* knowledge of what they're protecting mitigates this concern (and can supply geographic/jurisdictional diversity).
 
 ## References
 * [Blockchain commons thread on nosy signatories](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37)
