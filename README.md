@@ -95,7 +95,7 @@ Public Key Record (from hardware wallet) in regular encoding:
 
 ### Buidl Verification
 
-This could be generated in build as follows:
+This could be generated in buidl as follows:
 ```
 $ python3
 >>> from buidl.hd import HDPrivateKey
@@ -123,7 +123,7 @@ Type help or ? to list commands.
 (₿) advanced_mode
 ADVANCED mode set, don't mess up!
 (₿) blind_xpub
-Enter an xpub key record to blind in the format [deadbeef/path]xpub (any path will do): [2553c4b8[2553c4b8/48h/1h/0h/2h]Vpub5maJud3od8qgmvi3XPpnweRsBm4ir8QdVTesjtmt8Q3nV48HncG1sddZCMhr6W6GRoAs3svAXvGZ8GF98rQkHH5UMtCHJimTNNjNSWZUapk
+Enter an xpub key record to blind in the format [deadbeef/path]xpub (any path will do): [2553c4b8/48h/1h/0h/2h]Vpub5maJud3od8qgmvi3XPpnweRsBm4ir8QdVTesjtmt8Q3nV48HncG1sddZCMhr6W6GRoAs3svAXvGZ8GF98rQkHH5UMtCHJimTNNjNSWZUapk
 Use standard entropy parameters for blinding? [Y/n]: 
 Generating BIP32 path with 124 bits of good entropy...
 Here is a blinded xpub key record to upload to your Coordinator.
