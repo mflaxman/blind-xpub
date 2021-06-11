@@ -30,9 +30,9 @@ While `4-of-7` multisig sounds great in theory, how many people have access to `
 
 #### 2) Privacy Leakage
 
-Standard/default BIP32 paths make it so that if a bad actor gets unauthorized access to a BIP39 seed phrase (or even just the corresponding xpub), they could learn about what funds it protects as well as the quorum required (`m-of-n`).
-For example, they by scanning the blockchain for spent pubkeys in a redeem script they might learn the following:
-* Yesterday that seed phrase's xpub was party to a massive transaction that (likely) had a large change ouput (note that this is the case even if this seed phrase did not produce a signature in the transaction and was just sitting in cold storage).
+Standard/default BIP32 paths make it so that if a bad actor gets unauthorized access to a BIP39 seed phrase (or even just the corresponding xpub), they could learn about what funds it protects as well as the number of signers required to move funds.
+For example, they might learn the following (by scanning the blockchain for spent pubkeys in a redeem script):
+* Yesterday that seed phrase was party to a massive transaction that (likely) had a large change ouput (note that this is the case even if this seed phrase did not produce a signature in the transaction and was just sitting in cold storage).
 * The transaction was a `2-of-3 and likely had large change output sent back to itself. This means that only 1 more seed phrase (along with the account map) is needed to spend funds.
 * It might also be possible to know that this entity engages in similiar transactions each weekday at ~4pm local time.
 
