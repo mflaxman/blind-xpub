@@ -12,7 +12,7 @@
 * [Compatibility](#compatibility)
 * [First Party Blinding](#first-party-blinding)
 * [Seed Phrase Reuse](#seed-phrase-reuse)
-* [Versus Passphrase](#vs-passphrase)
+* [Comparison to Other Protocols](#comparison-to-other-protocols)
 * [References](#references)
 
 ## Intro
@@ -399,23 +399,44 @@ Of course, to be safe the best practice for Uncle Jim would be to give out a dif
 It would even be possible (though not required) for this seed phrase to be the very same one Uncle Jim uses to protect their personal bitcoin, meaning no new setup ceremony nor backup would be required.
 Relying more heavily on one system might further incentivize Uncle Jim to improve his own seed phrase security by using a metal plate backup, perhaps including a passphrase, and/or using a protocol like [SLIP39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
 
-## Vs Passphrase
-Another way to accomplish the same goal would be to use a unique passphrase for each BIP39 seed, but I argue that using BIP 32 paths is *strictly superior*.
+## Comparison to Other Protocols
+
+How does this compare to existing options?
+
+### Versus Regular (Unblinded) Seeds
+While this protocol does work, is it worth it at all?
+
+#### Regular (Unblinded) Seed Advantages
+* Complexity is the enemy of security.
+However, the biggest form of complexity is storing the output descriptors, which is already the highly encouraged best practice for multisig.
+* If you lose the output descriptors, but still have all `m` seed phrases, you can still recover your funds.
+Counterpoint: you should never lose your output descriptors, and they should be backed up in many places.
+This is already a well-understood best practice for all multisig users.
+
+#### Regular (Unblinded) Seed Disadvantages
+* Each seed phrase can leak dangerous privacy information about what it protects.
+This also discourages larger (safer) quorums that offer extra redundancy/security.
+
+### Versus Secrets BIP39 Passphrases
+Another way to accomplish the same goal would be to [use a unique passphrase for each BIP39 seed](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37) and not store that passphrase with the BIP39 seed (keep it stored somewhere else).
+I argue that using BIP 32 paths is *strictly superior*.
 
 #### Passphrase Advantages
 * Nearly all HWWs already support passphrases.
 However, most multisig HWWs support arbitrary BIP32 paths, and for those that don't it would be trivial to support this feature (they choose to restrict paths to simplify the UI).
 
 #### Passphrase Disadvantages
-* Most hardware wallets have bad input devices (no keyboard), so typing a long passphrases at setup/use is quite challenging
-* Humans are terrible at generating passphrases.
-While it would be possible to have software generate the passphrase, most likely you'd have users making up bad ones.
-* Requires entering a passphrase to "unlock" the HWW, vs just using an existing mechanism (output descriptors) to transfer unlocking data to the HWW.
+* Most hardware wallets have bad input devices (no keyboard), so typing a long passphrases at setup/use is quite challenging.
+The passphrase is also required to "unlock" the HWW, vs just using an existing mechanism (output descriptors) to transfer unlocking data to the HWW.
 In this case of QR-based wallets, this unlocking is currently a magical UX; all you need to do is scan the Output Descriptors.
+* These unique passphrases must be stored somewhere.
+Of course, this could just be at the coordinator, but there is currently no mechanism/standard for how to do that (unlike BIP32 paths).
 * Requires visiting cold storage for re-use.
-For an "Uncle Jim" bitcoiner to participate in many different friends or family member multisig wallets, he must visit his cold storage and enter a unique passphrase for each participant.
-* If you want to have an regular passphrase (as well as a blinding passphrase), that becomes complex.
-You would probably just do something like append it to the end of the blinding passphrase, but this is messy (was there a separation character?).
+For an "Uncle Jim" bitcoiner to participate in many different friends or family member multisig wallets, he must visit his cold storage and enter a unique passphrase before giving out an xpub to each participant.
+* If you want to use a regular BIP39 passphrase in addition to a blinding passphrase, that becomes complex.
+You would probably just do something like append the regular passphrase to the end of the blinding passphrase, but this is messy (was there a separation character?).
+* Humans are terrible at generating passphrases.
+While it would be possible to have software generate the passphrase, that would be somewhat confusing as passwords have always been user-supplied; you'd likely have users making up bad ones.
 * From the author of [the original passphrase-based proposal](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37#discussioncomment-627710): "I like your privacy proposal (using long unpredictable BIP32 path) better than mine (using BIP39 passwords)."
 
 ## References
