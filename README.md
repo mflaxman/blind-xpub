@@ -22,23 +22,33 @@ Multisig adoption has the power to reduce hacks/theft/loss in the bitcoin space 
 
 Multisig has the power to increase bitcoin adoption, as HODLers might be comfortable storing a greater percentage of their net worth in bitcoin.
 
-### Privacy Leakage
+However, multisig adoption currently suffer from two big problems.
 
-Standard/default BIP32 paths make it so that if a bad actor gets unauthorized access to a BIP39 seed phrase (or even just an xpub), they may be able to learn about what funds it protects as well as the quorum required (`m-of-n`).
+### 1: Having Multiple Secure Locations
 
-Under current best-practices, if a bad actor gets unauthorized access to a single seed phrase they could learn the following by scanning the blockchain pubkeys in a `p2wsh`:
-* Yesterday that seed phrase was party to a massive transaction that (likely) had a large change ouput (note that this situation could be true even if this seed phrase did not produce a signature in the transaction)
-* The transaction that this seed phrase was a party to (which likely had large change sent back to itself) was a `2-of-3`, meaning that only 1 more seed phrase (along with the account map) is needed to spend funds.
-* It might also be possible to know that this entity engages in similiar transactions each weekday at say 4pm local time.
+While `4-of-7` multisig sounds great in theory, how many people have access to `7` safe locations with around the clock security?
+
+### 2: Privacy Leakage
+
+Standard/default BIP32 paths make it so that if a bad actor gets unauthorized access to a BIP39 seed phrase (or even just the corresponding xpub), they could learn about what funds it protects as well as the quorum required (`m-of-n`).
+For example, they by scanning the blockchain for spent pubkeys in a redeem script they might learn the following:
+* Yesterday that seed phrase's xpub was party to a massive transaction that (likely) had a large change ouput (note that this is the case even if this seed phrase did not produce a signature in the transaction and was just sitting in cold storage).
+* The transaction was a `2-of-3 and likely had large change output sent back to itself. This means that only 1 more seed phrase (along with the account map) is needed to spend funds.
+* It might also be possible to know that this entity engages in similiar transactions each weekday at ~4pm local time.
 
 _Potential outcome: show up at this person's house or place of business with a $5 wrench._
 
+Even if the direct outcome of this privacy leak isn't used to rob someone directly, it could be used in other nefarious ways.
+For example, a government could subpoena a bank to look inside a safe deposit box to find a BIP39 seed phrase (say on a metal plate).
+If this seed phrase were part of a multisig wallet, that could reveal a lot of private information to the government (even if `>1` seed phrases were needed to spend from).
 
 ### Solution
 
 In this scheme, we demonstrate using a large and randomly generated BIP32 path to blind a BIP39 seed (or more specifically the corresponding xpub) in a multisig quorum.
 If a bad actor gets unauthorized access to that BIP39 seed (and passphrase, if applicable), they learn *nothing* about what it protects.
-We demonstrate that this proposal works today, is compatible with existing multisig hardware wallets, and has positive implications for both privacy and trust-minimized collaborative key-holders.
+This scheme enables 1 (or more) semi-trusted collaborative custodians (e.g. a lawyer, accountant, heir, close friend, "uncle Jim" bitcoiner, collaborative custody service, etc) to participate in a multisig quorum with *zero* knowledge of what they're protecting, and can supply geographic/jurisdictional diversity.
+
+We demonstrate that this proposal has been working on mainnet for some time, is compatible with existing multisig hardware wallets, and has positive implications for both privacy and trust-minimized collaborative key-holders.
 
 ## Tech Overview
 
@@ -385,12 +395,6 @@ Of course, to be safe the best practice for Uncle Jim would be to give out a dif
 
 It would even be possible (though not required) for this seed phrase to be the very same one Uncle Jim uses to protect their personal bitcoin, meaning no new setup ceremony nor backup would be required.
 Relying more heavily on one system might further incentivize Uncle Jim to improve his own seed phrase security by using a metal plate backup, perhaps including a passphrase, and/or using a protocol like [SLIP39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
-
-### Having Multiple Secure Locations
-
-While `4-of-7` multisig sounds great in theory, how many people have access to `7` safe locations with around the clock security?
-
-By using a scheme that enables 1 (or more) semi-trusted collaborative custodians (e.g. a lawyer, accountant, heir, close friend, "uncle Jim" bitcoiner, collaborative custody service, etc) to participate in a multisig quorum with *zero* knowledge of what they're protecting mitigates this concern (and can supply geographic/jurisdictional diversity).
 
 ## Vs Passphrase
 Another way to accomplish the same goal would be to use a unique passphrase for each BIP39 seed.
