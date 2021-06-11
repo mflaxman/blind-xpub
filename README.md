@@ -24,11 +24,11 @@ Multisig has the power to increase bitcoin adoption, as HODLers might be comfort
 
 However, multisig adoption currently suffer from two big problems.
 
-### 1: Having Multiple Secure Locations
+### 1) Having Multiple Secure Locations
 
 While `4-of-7` multisig sounds great in theory, how many people have access to `7` safe locations with around the clock security?
 
-### 2: Privacy Leakage
+### 2) Privacy Leakage
 
 Standard/default BIP32 paths make it so that if a bad actor gets unauthorized access to a BIP39 seed phrase (or even just the corresponding xpub), they could learn about what funds it protects as well as the quorum required (`m-of-n`).
 For example, they by scanning the blockchain for spent pubkeys in a redeem script they might learn the following:
