@@ -22,13 +22,13 @@ Multisig adoption has the power to reduce hacks/theft/loss in the bitcoin space 
 
 Multisig has the power to increase bitcoin adoption, as HODLers might be comfortable storing a greater percentage of their net worth in bitcoin.
 
-However, multisig adoption currently suffer from two big problems.
+However, multisig adoption currently suffer from two big problems: securing multiple locations and privacy leakage.
 
-#### 1) Having Multiple Secure Locations
+#### Securing Multiple Locations
 
 While `4-of-7` multisig sounds great in theory, how many people have access to `7` safe locations with around the clock security?
 
-#### 2) Privacy Leakage
+#### Privacy Leakage
 
 Standard/default BIP32 paths make it so that if a bad actor gets unauthorized access to a BIP39 seed phrase (or even just the corresponding xpub), they could learn about what funds it protects as well as the number of signers required to move funds.
 For example, they might learn the following (by scanning the blockchain for spent pubkeys in a redeem script):
