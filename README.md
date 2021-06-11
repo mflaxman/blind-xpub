@@ -397,14 +397,14 @@ It would even be possible (though not required) for this seed phrase to be the v
 Relying more heavily on one system might further incentivize Uncle Jim to improve his own seed phrase security by using a metal plate backup, perhaps including a passphrase, and/or using a protocol like [SLIP39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
 
 ## Vs Passphrase
-Another way to accomplish the same goal would be to use a unique passphrase for each BIP39 seed.
+Another way to accomplish the same goal would be to use a unique passphrase for each BIP39 seed, but I argue that using BIP 32 paths is *strictly superior*.
 
 #### Passphrase Advantages
 * Nearly all HWWs already support passphrases.
-However, most hardware wallets lack good input devices, so typing a long passphrases at setup/use is quite challenging.
-Most HWWs support arbitrary BIP32 paths, and it would be trivial for them to add this feature (they choose not to for simplicity/convention).
+However, most multisig HWWs support arbitrary BIP32 paths, and for those that don't it would be trivial to support this feature (they choose to restrict paths to simplify the UI).
 
 #### Passphrase Disadvantages
+* Most hardware wallets have bad input devices (no keyboard), so typing a long passphrases at setup/use is quite challenging
 * Humans are terrible at generating passphrases.
 While it would be possible to have software generate the passphrase, most likely you'd have users making up bad ones.
 * Requires entering a passphrase to "unlock" the HWW, vs just using an existing mechanism (output descriptors) to transfer unlocking data to the HWW.
