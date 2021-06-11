@@ -17,30 +17,33 @@
 
 ## Intro
 Bitcoin's multisig security model is a breakthrough in human ability to self-custody value.
-By comparison, it is impossible to 3-of-5 your gold.
+By comparison, it is impossible to `3-of-5` your gold.
 Multisig adoption has the power to reduce hacks/theft/loss in the bitcoin space by allowing users to make 1 (or more) catastrophic mistakes in their custody without putting funds at risk.
 
-Multisig has the power to increase bitcoin adoption, as HODLers might be comfortable storing a greater percentage of their net worth in bitcoin.
-
-However, multisig adoption currently suffer from two big problems: securing multiple locations and privacy leakage.
+However, multisig adoption currently suffer from two big problems: securing multiple locations and privacy leakage (at those locations).
 
 #### Securing Multiple Locations
 
-While `4-of-7` multisig sounds great in theory, how many people have access to `7` safe locations with around the clock security?
+While `4-of-7` multisig sounds great in theory, how many people have access to `7` locations with around the clock security?
+The problem is even harder if you want geographic redundancy to protect against natural disasters (a fire, flood, or tornado leading to evacuation).
+
+Multisig's killer feature (adding redundancy and eliminating single points of failure) is heavily reduced if private key material is stored in the same physical location.
+For example, a `2-of-3` multisig where `2` seed phrases are kept at home is not ideal.
 
 #### Privacy Leakage
 
-Standard/default BIP32 paths make it so that if a bad actor gets unauthorized access to a BIP39 seed phrase (or even just the corresponding xpub), they could learn about what funds it protects as well as the number of signers required to move funds.
-For example, they might learn the following (by scanning the blockchain for spent pubkeys in a redeem script):
-* Yesterday that seed phrase was party to a massive transaction that (likely) had a large change ouput (note that this is the case even if this seed phrase did not produce a signature in the transaction and was just sitting in cold storage).
-* The transaction was a `2-of-3 and likely had large change output sent back to itself. This means that only 1 more seed phrase (along with the account map) is needed to spend funds.
-* It might also be possible to know that this entity engages in similiar transactions each weekday at ~4pm local time.
+Standard/default BIP32 paths make it so that if a bad actor gets unauthorized access to a BIP39 seed phrase (or corresponding xpub), they could learn about what funds it protects and how.
+For example, by scanning the blockchain for spent pubkeys in redeem scripts they might learn the following:
+* That seed phrase was party to a massive transaction yesterday that (likely) had a large change ouput (note that this is the case even if this seed phrase did not produce a signature in the transaction and was just sitting in cold storage).
+* The transaction was a `2-of-3` and likely had large change output sent back to itself. This means that only 1 more seed phrase (along with the account map) is needed to spend funds.
+* It might also be possible to know that this entity engages in similiar transactions each Friday at ~4pm local time.
 
 _Potential outcome: show up at this person's house or place of business with a $5 wrench._
 
-Even if the direct outcome of this privacy leak isn't used to rob someone directly, it could be used in other nefarious ways.
-For example, a government could subpoena a bank to look inside a safe deposit box to find a BIP39 seed phrase (say on a metal plate).
-If this seed phrase were part of a multisig wallet, that could reveal a lot of private information to the government (even if `>1` seed phrases were needed to spend from).
+Even if the direct outcome of this privacy leak isn't used to rob someone, this information can be used in other nefarious ways:
+* A government could subpoena a bank to look inside a safe deposit box to find a BIP39 seed phrase (say on a metal plate).
+* A collaborative custodian (e.g. a lawyer, accountant, heir, close friend, "uncle Jim" bitcoiner, collaborative custody service, etc) could learn about your HODL and could share that information (either by business decision or government mandate).
+* An interested heir could peak at their future inheritance.
 
 ### Solution
 
@@ -48,7 +51,7 @@ In this scheme, we demonstrate using a large and randomly generated BIP32 path t
 If a bad actor gets unauthorized access to that BIP39 seed (and passphrase, if applicable), they learn *nothing* about what it protects.
 This scheme enables 1 (or more) semi-trusted collaborative custodians (e.g. a lawyer, accountant, heir, close friend, "uncle Jim" bitcoiner, collaborative custody service, etc) to participate in a multisig quorum with *zero* knowledge of what they're protecting, and can supply geographic/jurisdictional diversity.
 
-We demonstrate that this proposal has been working on mainnet for some time, is compatible with existing multisig hardware wallets, and has positive implications for both privacy and trust-minimized collaborative key-holders.
+We demonstrate that this proposal is already live on bitcoin mainnet, is compatible with existing multisig hardware wallets, and has positive implications for both privacy and trust-minimized collaborative key-holders.
 
 ## Tech Overview
 
