@@ -395,17 +395,20 @@ By using a scheme that enables 1 (or more) semi-trusted collaborative custodians
 ## Vs Passphrase
 Another way to accomplish the same goal would be to use a unique passphrase for each BIP39 seed.
 
-Passphrase Advantages
+#### Passphrase Advantages
 * Nearly all HWWs already support passphrases.
 However, most hardware wallets lack good input devices, so typing a long passphrases at setup/use is quite challenging.
-Most HWWs support arbitrary BIP32 paths, and it would be trivial for them to add this feature (they choose not to for simplicity//convention).
+Most HWWs support arbitrary BIP32 paths, and it would be trivial for them to add this feature (they choose not to for simplicity/convention).
 
-Passphrase Disadvantages
+#### Passphrase Disadvantages
 * Humans are terrible at generating passphrases.
-* Requires visiting cold storage for re-use.
-For an "Uncle Jim" bitcoiner to participate in many different friends or family member multisig wallets, he must visit his cold storage and enter a unique passphrase for each participant.
+While it would be possible to have software generate the passphrase, most likely you'd have users making up bad ones.
 * Requires entering a passphrase to "unlock" the HWW, vs just using an existing mechanism (output descriptors) to transfer unlocking data to the HWW.
 In this case of QR-based wallets, this unlocking is currently a magical UX; all you need to do is scan the Output Descriptors.
+* Requires visiting cold storage for re-use.
+For an "Uncle Jim" bitcoiner to participate in many different friends or family member multisig wallets, he must visit his cold storage and enter a unique passphrase for each participant.
+* If you want to have an regular passphrase (as well as a blinding passphrase), that becomes complex.
+You would probably just do something like append it to the end of the blinding passphrase, but this is messy (was there a separation character?).
 * From the author of [the original passphrase-based proposal](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37#discussioncomment-627710): "I like your privacy proposal (using long unpredictable BIP32 path) better than mine (using BIP39 passwords)."
 
 ## References
