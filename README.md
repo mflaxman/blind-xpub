@@ -2,13 +2,13 @@
 
 ## Table of Contents
 * [Intro](#intro)
-* [Tech Overview](#tech-overview)
-* [Generate 2 Seed Phrases](#generate-2-seed-phrases)
-* [Blind 1 Seed Phrase](#blind-1-seed-phrase)
-* [Create Account Map](#create-account-map)
-* [Get Receive Address](#get-receive-address)
-* [Sign Transaction](#sign-transaction)
-* [What We Accomplished](#what-we-accomplished)
+* [Walk-thru](#walk-thru)
+  * [Generate 2 Seed Phrases](#generate-2-seed-phrases)
+  * [Blind 1 Seed Phrase](#blind-1-seed-phrase)
+  * [Create Account Map](#create-account-map)
+  * [Get Receive Address](#get-receive-address)
+  * [Sign Transaction](#sign-transaction)
+  * [What We Accomplished](#what-we-accomplished)
 * [Compatibility](#compatibility)
 * [First Party Blinding](#first-party-blinding)
 * [Seed Phrase Reuse](#seed-phrase-reuse)
@@ -53,7 +53,7 @@ This scheme enables 1 (or more) semi-trusted collaborative custodians (e.g. a la
 
 We demonstrate that this proposal is already live on bitcoin mainnet, is compatible with existing multisig hardware wallets, and has positive implications for both privacy and trust-minimized collaborative key-holders.
 
-## Tech Overview
+## Walk-thru
 
 For this demo, we'll use [Specter-Desktop](https://github.com/cryptoadvance/specter-desktop/) (powered by Bitcoin Core) as it's the de-facto standard for almost all new sovereign multisig users today.
 This should work for any Coordinator software that supports modern multisig standards ([account maps](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) and [PSBTs](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki)).
