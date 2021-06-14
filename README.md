@@ -5,7 +5,7 @@
 * [Tech Overview](#tech-overview)
 * [Generate 2 Seed Phrases](#generate-2-seed-phrases)
 * [Blind 1 Seed Phrase](#blind-1-seed-phrase)
-* [Create Account Map](#create-account-map)
+* [Create Output Descriptors (Account Map)](#create-output-descriptors)
 * [Get Receive Address](#get-receive-address)
 * [Sign Transaction](#sign-transaction)
 * [What We Accomplished](#what-we-accomplished)
@@ -35,7 +35,8 @@ For example, a `2-of-3` multisig where `2` seed phrases are kept at home is not 
 Standard/default BIP32 paths make it so that if a bad actor gets unauthorized access to a BIP39 seed phrase (or corresponding xpub), they could learn about what funds it protects and how.
 For example, by scanning the blockchain for spent pubkeys in redeem scripts they might learn the following:
 * That seed phrase was party to a massive transaction yesterday that (likely) had a large change ouput (note that this is the case even if this seed phrase did not produce a signature in the transaction and was just sitting in cold storage).
-* The transaction was a `2-of-3` and likely had large change output sent back to itself. This means that only 1 more seed phrase (along with the account map) is needed to spend funds.
+* The transaction was a `2-of-3` and likely had large change output sent back to itself.
+This means that only 1 more seed phrase (along with the output descriptors) is needed to spend funds.
 * It might also be possible to know that this entity engages in similiar transactions each Friday at ~4pm local time.
 
 _Potential outcome: show up at this person's house or place of business with a $5 wrench._
@@ -56,7 +57,7 @@ We demonstrate that this proposal is already live on bitcoin mainnet, is compati
 ## Tech Overview
 
 For this demo, we'll use [Specter-Desktop](https://github.com/cryptoadvance/specter-desktop/) (powered by Bitcoin Core) as it's the de-facto standard for almost all new sovereign multisig users today.
-This should work for any Coordinator software that supports modern multisig standards ([account maps](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) and [PSBTs](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki)).
+This should work for any Coordinator software that supports modern multisig standards ([ouput descriptors](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) and [PSBTs](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki)).
 We'll also duplicate the code in [buidl](https://github.com/buidl-bitcoin/buidl-python) as it's a no-dependency FOSS bitcoin implementation that provides full support for every step of the blinding protocol.
 For simplicity, we are going to blind just `1` seed phrase in a `1-of-2`, but it should be obvious how to expand this to a `2-of-3`, `3-of-5`, or any other quorum.
 At the end, we'll discuss implications for blinding all `m` seed phrases.
@@ -164,13 +165,13 @@ This looks better when formatted with nice colors in the CLI app:
 You can validate on this on an airgap computer using [Ian Coleman’s popular open-source tool](https://iancoleman.io/bip39/) and [Jameson Lopp's xpub converter for SLIP132 version byte encoding](https://jlopp.github.io/xpub-converter/).
 [Here is a screenshot of proving accuracy of this derivation path from the xpub](blinding_from_vpub.png), and [here is a screenshot assuming you have access to their seed phrase](blinding_from_seed_phrase.png) (SLIP132 version byte encoding [here](blinded_tpub_to_vpub.png)).
 
-## Create Account Map
+## Create Output Descriptors
 
 In our case, we take the regular seed phrase A xpub (see [Seed Phrase A](#Seed-Phrase-A) above) and the blinded Seed Phrase B xpub we just calculated (see [Blind 1 Seed Phrase](#Blind-1-Seed-Phrase) above) and combine them into a `1-of-2 p2wsh sortedmulti` output descriptor using Bitcoin Core (via Specter-Desktop):
 
 ![image](1of2_p2wsh_sortedmulti.png)
 
-That will also generate [this account map PDF backup](investx12_sellx12_blinded_backup.pdf) (account map only [here](account_map.png)).
+That will also generate [this output descriptors PDF backup](investx12_sellx12_blinded_backup.pdf) (output descriptors only [here](account_map.png)).
 
 ### Buidl Verification
 
@@ -228,7 +229,7 @@ Using a testnet faucet, we send some tBTC to this address:
 ## Sign Transaction
 To spend from this multisig, *both* of the following are required:
 1. One seed phrase - can be either A or B
-1. The complete account map - this covers **all** seeds used in this multisig wallet, even if they're not used to co-sign the given transaction
+1. The complete output descriptors - this covers **all** seeds used in this multisig wallet, even if they're not used to co-sign the given transaction
 
 We will return the funds to the testnet faucet address:
 `mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt`
@@ -305,31 +306,31 @@ Then, you can generate the transaction to sign using multiwallet ([text](psbt_fr
 
 ## What We Accomplished
 
-At the time of seed generation up until revealing the account map (with secret BIP32 path), the holder of seed phrase B was unable to learn *anything* about what they were protecting:
+At the time of seed generation up until revealing the output descriptors (with secret BIP32 path), the holder of seed phrase B was unable to learn *anything* about what they were protecting:
 * Transaction history (including any spent UTXOs) & balance
 * Quorum information (`1-of-2` in this case)
 
 If the HODLer of this seed phrase were malicious (or compelled by a government), they would not be able to reveal *any* privacy information.
 Also, because this is built on top of existing BIP32 paths, it is *already* compatible with many existing hardware wallets and software libraries.
 
-Of course, this scheme requires that the blinded key holder be able to get access to the account map in the event they are needed for recovery.
+Of course, this scheme requires that the blinded key holder be able to get access to the output descriptors in the event they are needed for recovery.
 Presumably, this privacy tradeoff is well worth it to the original key-holder if they are still alive but have lost access to their seed phrase.
 Alternatively, if the original key-holder is now deceased, privacy is likely no longer their top concern (they just want the funds to make it to their heirs).
 
 A common use-case here might be a `2-of-3` with the following criteria:
-* Seed A belongs to the HODLer, who keeps it at home or work (along with copies of the account map)
+* Seed A belongs to the HODLer, who keeps it at home or work (along with copies of the output descriptors)
 * Seed B belongs to the HODLer, who intentionally blinds it before putting the seed phrase in a safe deposit box.
 The safe deposit box is setup to automatically transfer to the HODLer's estate (children) in the event something happens to them.
-* Seed C is generated by the HODLer's estate (children), who is also given a copy of the account map.
+* Seed C is generated by the HODLer's estate (children), who is also given a copy of the output descriptors.
 
 In this situation, if a banker drills the safe deposit box, they would be unable to tell what they gained access to (amount and/or quorum).
 
 Of course this is just one construction out of nearly infinite possibilities.
-Another might be to blind the heir's key (so that they don't know what they're inheriting) and give the account map to a lawyer (who is bound by attorney-client privilege and also has **no private key material**).
+Another might be to blind the heir's key (so that they don't know what they're inheriting) and give the output descriptors to a lawyer (who is bound by attorney-client privilege and also has **no private key material**).
 
 ## Compatibility
 
-What's amazing about this protocol, is that because it takes advantage of existing standards (BIP32 and account map) it already works on the bitcoin network!
+What's amazing about this protocol, is that because it takes advantage of existing standards (BIP32 and output descriptors) it already works on the bitcoin network!
 
 ### Signers (Hardware Wallets)
 
@@ -369,15 +370,15 @@ We'll refer to this as "first-party blinding."
 
 This means that if a bad actor gets unauthorized access to a single seed phrase (perhaps a single secure location is compromised), they learn *nothing* about what it protects nor what threshold is required for access.
 
-In the future, wallets could use their own CSPRNG to self-blind their own seed phrases (eliminating one interactive setup step), and then the Coordinator software could be tasked with keeping track of the account map.
+In the future, wallets could use their own CSPRNG to self-blind their own seed phrases (eliminating one interactive setup step), and then the Coordinator software could be tasked with keeping track of the output descriptors.
 The coordinator could split it using Shamir's Secret Sharing Scheme. 
-It would then be possible to have something like a `3-of-5` on-chain `p2wsh` multisig, where perhaps `2-of-n` Shamir Shards are needed to recover the account map.
+It would then be possible to have something like a `3-of-5` on-chain `p2wsh` multisig, where perhaps `2-of-n` Shamir Shards are needed to recover the output descriptors.
 In this case, `n` is a user-configurable large number and unrelated to the `3-of-5` in the on-chain multisig.
 The hardware wallet could even validate these Shamir Shares, since it's already being trusted to delete the BIP32 paths it generated on setup.
 **Under this construction, if a bad actor gets unauthorized access to any single seed phrase they'd learn nothing about what it protects.**
 
-Even better, a further version could have individual hardware wallets sign the account map before deleting the BIP32 path, so that when the account map is replayed they can know with certainty that they previously approved this account map (in the case of secure receive address validation for example).
-A simpler scheme (similar to what BitBox02 already does) would be for the hardware wallet to store only a hash digest of the account map, and when the account map is replayed from the Coordinator it would validate that this matches what was previously saved.
+Even better, a further version could have individual hardware wallets sign the output descriptors before deleting the BIP32 path, so that when the output descriptors are replayed they can know with certainty that they previously approved these output descriptors (in the case of secure receive address validation for example).
+A simpler scheme (similar to what BitBox02 already does) would be for the hardware wallet to store only a hash digest of the output descriptors, and when the output descriptors is replayed from the Coordinator it would validate that this matches what was previously saved.
 While simpler, the latter approach is difficult to transfer over to a new device should an existing device fail or be destroyed.
 
 Note, that we don't have to choose between first and second-party blinding, it is possible to mix and match.
@@ -385,9 +386,9 @@ For example, we might have a `2-of-3` that looks like the following:
 * Seed A belongs to the HODLer, who first-party blinds it and keeps it at home/work
 * Seed B belongs to the HODLer, who first-party blinds it and keeps it in a safe-deposit box that is setup to transfer to their heirs if anything happens to them
 * Seed C is generated by a trust-minimized lawyer, who is charged with seeing that the funds make it to the HODLer's young children.
-The trust-minimized lawyer presents any xpub/path to the HODLer, who second-party blinds it and uses that in their account map.
-* The HODLer encrypts the account map, and uses Shamir's Secret Sharing Scheme to divide the decryption key used into `2-of-3` parts (arbitrary but neat threshold).
-Each seed phrase (in plain text) is stored alongside an encrypted copy of the account map, as well as 1 Shamir Share.
+The trust-minimized lawyer presents any xpub/path to the HODLer, who second-party blinds it and uses that in their output descriptors.
+* The HODLer encrypts the output descriptors, and uses Shamir's Secret Sharing Scheme to divide the decryption key used into `2-of-3` parts (arbitrary but neat threshold).
+Each seed phrase (in plain text) is stored alongside an encrypted copy of the output descriptors, as well as 1 Shamir Share.
 
 ## Seed Phrase Reuse
 
@@ -417,7 +418,7 @@ This is already a well-understood best practice for all multisig users.
 * Each seed phrase can leak dangerous privacy information about what it protects.
 This also discourages larger (safer) quorums that offer extra redundancy/security.
 
-### Versus Secrets BIP39 Passphrases
+### Versus Secret BIP39 Passphrases
 Another way to accomplish the same goal would be to [use a unique passphrase for each BIP39 seed](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37) and not store that passphrase with the BIP39 seed (keep it stored somewhere else).
 I argue that using BIP 32 paths is *strictly superior*.
 
