@@ -408,11 +408,9 @@ In an emergency recovery situation (you lose 1 or more seeds and/or are hit by a
 
 How does this compare to existing options?
 
-### Versus Regular (Unblinded) Seeds
-While this protocol does work, is it worth it at all?
-
-**Regular (Unblinded) Seed Advantages**
->>>>>>> c77bbc9088698419bae12da227fa651b258c1cfe
+### Versus Regular/Traditional/Unblinded Seedsa
+While this protocol provides strong privacy, is it worth it?
+Regular (unblinded) seeds have some advantages:
 * Complexity is the enemy of security.
 However, the biggest form of complexity is storing the output descriptors, which is already the highly encouraged best practice for multisig.
 * Greater hardware wallet support.
@@ -421,11 +419,6 @@ However, it is my hope that all hardware wallets support enhanced privacy in the
 Counterpoint: you should never lose your output descriptors, as they should be backed up in many places.
 This is already a well-understood best practice for all multisig users.
 UPDATE: a new version of this protocol (coming soon) uses determinstically pseudo-random input from all seeds to eliminate this concern!
-
-**Regular (Unblinded) Seed Disadvantages**
-* Each seed phrase can leak dangerous privacy information about what it protects.
-This also discourages larger (safer) quorums that offer extra redundancy/security.
->>>>>>> c77bbc9088698419bae12da227fa651b258c1cfe
 
 #### Versus Secret BIP39 Passphrases
 Another way to accomplish the same goal would be to [use a unique passphrase for each BIP39 seed](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37) and not store that passphrase with the BIP39 seed (keep it stored somewhere else).
