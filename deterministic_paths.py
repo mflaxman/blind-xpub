@@ -31,8 +31,11 @@ NUM, BASE = 98278243937, 34
 assert decode(encode(NUM, BASE), BASE) == NUM
 
 
-def get_hmac_key(xpubs, quorum_m):
+def get_hmac_key(xpubs, quorum_m, passphrase=""):
+    assert type(passphrase) is str, "passphrase must be of type string (did you input binary data?)"
     to_hash = " ".join(["p2wsh", str(quorum_m)] + sorted(xpubs))
+    if passphrase:
+        to_hash += f" {passphrase}"
     return sha256(to_hash.encode()).digest()
 
 
@@ -81,11 +84,11 @@ key_records = [
 ]
 
 
-def blind_key_records(key_records, quorum_m):
+def blind_key_records(key_records, quorum_m, passphrase=""):
     # Sort key_records lexographically by xpub (needed later)
     key_records = sorted(key_records, key=lambda k: k["xpub"])
 
-    hmac_key = get_hmac_key([kr["xpub"] for kr in key_records], quorum_m=quorum_m)
+    hmac_key = get_hmac_key([kr["xpub"] for kr in key_records], quorum_m=quorum_m, passphrase=passphrase)
 
     p2wsh_sorted_multi_descriptor = f"wsh(sortedmulti({quorum_m}"
     for cnt, kr in enumerate(key_records):
@@ -131,7 +134,7 @@ print("first_receive_addr:", first_receive_addr, "\n")
 # We try all combinations until we get recovery
 
 
-def recover_output_descriptor(key_records, target_addrs, known_quorum_m=0):
+def recover_output_descriptor(key_records, target_addrs, known_quorum_m=0, passphrase=""):
     """
     The more you feed it, the more intelligent it will be about how it searches
     """
@@ -160,7 +163,7 @@ def recover_output_descriptor(key_records, target_addrs, known_quorum_m=0):
 
             total_tries += 1
             blinded_p2wsh_descriptors = blind_key_records(
-                key_records=key_records, quorum_m=quorum_m
+                key_records=key_records, quorum_m=quorum_m, passphrase=passphrase,
             )
             p2wsh_descriptor = P2WSHSortedMulti.parse(blinded_p2wsh_descriptors)
             for addr_cnt in range(len(target_addrs)):
@@ -226,21 +229,21 @@ print("#" * 88)
 print(key_records)
 
 for num_seeds in range(2, 16):
-    start_time = datetime.now()
+    for passphrase in ("", "correct horse battery staple"):
+        start_time = datetime.now()
 
-    p2wsh_sorted_multi_descriptor = blind_key_records(
-        key_records=all_key_records[:num_seeds], quorum_m=num_seeds
-    )
-    # print("p2wsh_sorted_multi_descriptor:", p2wsh_sorted_multi_descriptor)
+        p2wsh_sorted_multi_descriptor = blind_key_records(
+            key_records=all_key_records[:num_seeds], quorum_m=num_seeds, passphrase=passphrase,
+        )
+        # print("p2wsh_sorted_multi_descriptor:", p2wsh_sorted_multi_descriptor)
 
-    # Calc first receive addr (not strictly neccesary at this step)
-    first_receive_addr = P2WSHSortedMulti.parse(
-        p2wsh_sorted_multi_descriptor
-    ).get_address()
-    # print("first_receive_addr:", first_receive_addr, "\n")
+        first_receive_addr = P2WSHSortedMulti.parse(
+            p2wsh_sorted_multi_descriptor
+        ).get_address()
+        print("first_receive_addr:", first_receive_addr, "\n")
 
-    assert recover_output_descriptor(
-        key_records=all_key_records[:num_seeds], target_addrs={first_receive_addr}
-    )
+        assert recover_output_descriptor(
+            key_records=all_key_records[:num_seeds], target_addrs={first_receive_addr}, passphrase=passphrase,
+        )
 
-    print(f"{num_seeds} seeds took {datetime.now()-start_time}")
+        print(f"{num_seeds} seeds with passphrase `{passphrase}` took {datetime.now()-start_time}")
