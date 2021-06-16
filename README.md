@@ -20,17 +20,10 @@ Bitcoin's multisig security model is a breakthrough in human ability to self-cus
 By comparison, it is impossible to `3-of-5` your gold.
 Multisig adoption has the power to reduce hacks/theft/loss in the bitcoin space by allowing users to make 1 (or more) catastrophic mistakes in their custody without putting funds at risk.
 
-However, multisig adoption currently suffer from two big problems: securing multiple locations and privacy leakage (at those locations).
+However, multisig adoption currently suffer from a big problem: protecting your fund with `m-of-n` (i.e. `2-of-3`) pieces under current best practices means that there are now `n` locations where your privacy could be at risk.
+While [Shamir's Secret Sharing Scheme is strictly inferior from a security perspective](https://btcguide.github.io/why-multisig-advanced#shamirs-secret-sharing-scheme), it does have the benefit that if someone gains access to `<m` shamir shares they learn *nothing* about what it protects.
 
-#### Securing Multiple Locations
-
-While `4-of-7` multisig sounds great in theory, how many people have access to `7` locations with around the clock security?
-The problem is even harder if you want geographic redundancy to protect against natural disasters (a fire, flood, or tornado leading to evacuation).
-
-Multisig's killer feature (adding redundancy and eliminating single points of failure) is heavily reduced if private key material is stored in the same physical location.
-For example, a `2-of-3` multisig where `2` seed phrases are kept at home is not ideal.
-
-#### Privacy Leakage
+### Privacy Leakage
 
 Standard/default BIP32 paths make it so that if a bad actor gets unauthorized access to a BIP39 seed phrase (or corresponding xpub), they could learn about what funds it protects and how.
 For example, by scanning the blockchain for spent pubkeys in redeem scripts they might learn the following:
@@ -39,12 +32,12 @@ For example, by scanning the blockchain for spent pubkeys in redeem scripts they
 This means that only 1 more seed phrase (along with the output descriptors) is needed to spend funds.
 * It might also be possible to know that this entity engages in similiar transactions each Friday at ~4pm local time.
 
-_Potential outcome: show up at this person's house or place of business with a $5 wrench._
+_Potential outcome: show up at this person's house or place of business with a $5 wrench and 1 (stolen) seed phrase._
 
 Even if the direct outcome of this privacy leak isn't used to rob someone, this information can be used in other nefarious ways:
 * A government could subpoena a bank to look inside a safe deposit box to find a BIP39 seed phrase (say on a metal plate).
 * A collaborative custodian (e.g. a lawyer, accountant, heir, close friend, "uncle Jim" bitcoiner, collaborative custody service, etc) could learn about your HODL and could share that information (either by business decision or government mandate).
-* An interested heir could peak at their future inheritance.
+* An eager heir could peak at their future inheritance.
 
 ### Solution
 
@@ -400,33 +393,37 @@ Of course, to be safe the best practice for Uncle Jim would be to give out a dif
 It would even be possible (though not required) for this seed phrase to be the very same one Uncle Jim uses to protect their personal bitcoin, meaning no new setup ceremony nor backup would be required.
 Relying more heavily on one system might further incentivize Uncle Jim to improve his own seed phrase security by using a metal plate backup, perhaps including a passphrase, and/or using a protocol like [SLIP39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
 
+### Emergency Recover Keys
+
+Multisig's killer feature (adding redundancy and eliminating single points of failure) is heavily reduced if private key material is stored in the same physical location.
+For example, a `2-of-3` multisig where `2` seed phrases are kept at home is not ideal.
+While `4-of-7` multisig sounds great in theory, how many people have access to `7` locations with around the clock security?
+The problem is even harder if you want geographic redundancy to protect against natural disasters (a fire, flood, or tornado leading to evacuation).
+
+By using this scheme, you can choose to delegate some trust to explicit third parties (perhaps even in other geographies) by giving them keys designed to only ever be used for recovery.
+Under normal circumstances, they never sign a transaction or even see your output descriptors.
+In an emergency recovery situation (you lose 1 or more seeds and/or are hit by a bus), they can co-sign if supplied the output descriptors (destroying your privacy).
+
 ## Comparison to Other Protocols
 
 How does this compare to existing options?
 
-### Versus Regular (Unblinded) Seeds
-While this protocol does work, is it worth it at all?
+### Versus Regular/Traditional/Unblinded Seeds
+While this protocol provides strong privacy, is it worth it?
 
-#### Regular (Unblinded) Seed Advantages
+Regular (unblinded) seeds have some advantages:
 * Complexity is the enemy of security.
 However, the biggest form of complexity is storing the output descriptors, which is already the highly encouraged best practice for multisig.
+* Greater hardware wallet support.
+However, it is my hope that all hardware wallets support enhanced privacy in the future.
 * If you lose the output descriptors, but still have all `m` seed phrases, you can still recover your funds.
-Counterpoint: you should never lose your output descriptors, and they should be backed up in many places.
+Counterpoint: you should never lose your output descriptors, as they should be backed up in many places.
 This is already a well-understood best practice for all multisig users.
-
-#### Regular (Unblinded) Seed Disadvantages
-* Each seed phrase can leak dangerous privacy information about what it protects.
-This also discourages larger (safer) quorums that offer extra redundancy/security.
+UPDATE: a new version of this protocol (coming soon) uses determinstically pseudo-random input from all seeds to eliminate this concern!
 
 ### Versus Secret BIP39 Passphrases
 Another way to accomplish the same goal would be to [use a unique passphrase for each BIP39 seed](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37) and not store that passphrase with the BIP39 seed (keep it stored somewhere else).
-I argue that using BIP 32 paths is *strictly superior*.
-
-#### Passphrase Advantages
-* Nearly all HWWs already support passphrases.
-However, most multisig HWWs support arbitrary BIP32 paths, and for those that don't it would be trivial to support this feature (they choose to restrict paths to simplify the UI).
-
-#### Passphrase Disadvantages
+While this is nice because HWWs already support passphrases, I argue that using BIP32 paths is *strictly superior*:
 * Most hardware wallets have bad input devices (no keyboard), so typing a long passphrases at setup/use is quite challenging.
 The passphrase is also required to "unlock" the HWW, vs just using an existing mechanism (output descriptors) to transfer unlocking data to the HWW.
 In this case of QR-based wallets, this unlocking is currently a magical UX; all you need to do is scan the Output Descriptors.
