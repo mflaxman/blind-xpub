@@ -31,8 +31,9 @@ NUM, BASE = 98278243937, 34
 assert decode(encode(NUM, BASE), BASE) == NUM
 
 
-def get_hmac_key(xpubs):
-    return sha256(" ".join(sorted(xpubs)).encode()).digest()
+def get_hmac_key(xpubs, quorum_m):
+    to_hash = " ".join(["p2wsh", str(quorum_m)] + sorted(xpubs))
+    return sha256(to_hash.encode()).digest()
 
 
 def calc_bip32_path_to_append(hex_string):
@@ -84,7 +85,7 @@ def blind_key_records(key_records, quorum_m):
     # Sort key_records lexographically by xpub (needed later)
     key_records = sorted(key_records, key=lambda k: k["xpub"])
 
-    hmac_key = get_hmac_key([kr["xpub"] for kr in key_records])
+    hmac_key = get_hmac_key([kr["xpub"] for kr in key_records], quorum_m=quorum_m)
 
     p2wsh_sorted_multi_descriptor = f"wsh(sortedmulti({quorum_m}"
     for cnt, kr in enumerate(key_records):
@@ -141,7 +142,7 @@ def recover_output_descriptor(key_records, target_addrs, known_quorum_m=0):
 
         # If a known_quorum_m is supplied, only search in that space
         if known_quorum_m and quorum_m != known_quorum_m:
-            print("bail")
+            print(f"We are looking for a quourum_m of {known_quorum_m} and got {quorum_m}. Skipping!")
             continue
 
         # attempt blinding every possible combination of key records
@@ -177,7 +178,7 @@ def recover_output_descriptor(key_records, target_addrs, known_quorum_m=0):
 
 assert recover_output_descriptor(
     key_records=key_records,
-    target_addrs={"tb1q0vc3wa6fwa7uhu0xa3nt4vget5uxstd5r8jlyeynl9cfsf725v7q8l7g26"},
+    target_addrs={"tb1qz2vxp9nyrcm2xhla68fq6ls3s0q2qn23uxr33urltj5dy3jrj62s7gg4je"},
 )
 
 
