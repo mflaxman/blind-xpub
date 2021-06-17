@@ -477,7 +477,7 @@ Note that if you lose your output descriptors and have `n-1` seeds (say `4-of-5`
 
 One version of the deterministic algorithm for a 2-of-3 might be something like:
 ```
-bytes_to_bip32path(sha256("2 xpub_A xpub_B xpub_C"))
+deterministic_bip32path( sha256("2 xpub_A xpub_B xpub_C") )
 ```
 
 See [here](https://github.com/mflaxman/blind-xpub/blob/deterministic-paths/deterministic_paths.py) for a more complex working version that includes some more advanced features:
