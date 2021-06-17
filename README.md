@@ -539,4 +539,5 @@ While it would be possible to have software generate the passphrase, that would 
 * [Blockchain commons thread on nosy signatories](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37)
 * [Original tweet-storm with the idea for this](https://twitter.com/mflaxman/status/1329535324607885324)
 
-Thank you to Stepan Snigirev, Clark Moody, Jimmy Song, SeedSigner, and others for providing me with feedback on various iterations of this proposal.
+Thank you to Stepan Snigirev, Clark Moody, Jimmy Song, Christopher Allen, SeedSigner, and others for providing me with feedback on various iterations of this proposal.
+More feedback is welcomed.
