@@ -54,7 +54,7 @@ We'll also duplicate the code in [buidl](https://github.com/buidl-bitcoin/buidl-
 For simplicity, we are going to blind just `1` seed phrase in a `1-of-2`, but it should be obvious how to expand this to a `2-of-3`, `3-of-5`, or any other quorum.
 At the end, we'll discuss implications for blinding all `m` seed phrases.
 
-## Buidl Setup for Verification (not required)
+### Buidl Setup for Verification (not required)
 Easiest way to install and verify it's working:
 ```
 $ pip3 install buidl && python3
@@ -527,7 +527,7 @@ Counterpoint: the biggest form of complexity is backup up the output descriptors
 Counterpoint: I hope all hardware wallets will support enhanced privacy in the future.
 * If you don't keep a copy of the output descriptors, but still have all `n` seed phrases, you can still recover your funds.
 Counterpoint: you should never lose your output descriptors, as they should be backed up in many places.
-Update: ** [the deterministic paths version of this protocol](#deterministic-paths) eliminates this concern!
+Update: **[the deterministic paths version of this protocol](#deterministic-paths) eliminates this concern!**
 
 ### Versus Secret BIP39 Passphrases
 Another way to accomplish the same goal would be to [use a unique passphrase for each BIP39 seed](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37) and not store that passphrase with the BIP39 seed (keep it stored somewhere else).
