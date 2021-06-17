@@ -26,18 +26,16 @@ While [Shamir's Secret Sharing Scheme is strictly inferior from a security persp
 
 ### Privacy Leakage
 
-Standard/default BIP32 paths make it so that if a bad actor gets unauthorized access to a BIP39 seed phrase (or corresponding xpub), they could learn about what funds it protects and how.
-For example, by scanning the blockchain for spent pubkeys in redeem scripts they might learn the following:
-* That seed phrase was party to a massive transaction yesterday that (likely) had a large change ouput (note that this is the case even if this seed phrase did not produce a signature in the transaction and was just sitting in cold storage).
-* The transaction was a `2-of-3` and likely had large change output sent back to itself.
-This means that only 1 more seed phrase (along with the output descriptors) is needed to spend funds.
-* It might also be possible to know that this entity engages in similiar transactions each Friday at ~4pm local time.
-
-_Potential outcome: show up at this person's house or place of business with a $5 wrench and 1 (stolen) seed phrase._
+Standard/default BIP32 paths make it so that if a bad actor gets unauthorized access to a BIP39 seed phrase, they could learn about what funds it protects and how (by scanning the blockchain for spent pubkeys in redeem scripts).
+For example, they might learn the following:
+* The stolen seed phrase was party to a massive transaction yesterday that (likely) had a large change ouput.
+(Note that this is the case even if this seed phrase did not produce a signature in the transaction and was just sitting in cold storage).
+* The transaction was a `2-of-3` and likely had large change output sent back to itself, so only 1 more seed phrase (along with the output descriptors) is needed to spend funds.
+* This wallet engages in similiar transactions each Friday at ~4pm local time.
 
 Even if the direct outcome of this privacy leak isn't used to rob someone, this information can be used in other nefarious ways:
 * A government could subpoena a bank to look inside a safe deposit box to find a BIP39 seed phrase (say on a metal plate).
-* A collaborative custodian (e.g. a lawyer, accountant, heir, close friend, "uncle Jim" bitcoiner, collaborative custody service, etc) could learn about your HODL and could share that information (either by business decision or government mandate).
+* A collaborative custodian (e.g. a lawyer, accountant, heir, close friend, "uncle Jim" bitcoiner, collaborative custody service, etc) could learn about your HODL and could share that information (by being hacked, a business decision, or being compelled by government).
 * An eager heir could peak at their future inheritance.
 
 ### Solution
@@ -163,10 +161,25 @@ Important notes:
 
 </details>
 
-#### Verification
+
+<details>
+  <summary>Ian Coleman BIP39 Verification</summary>
 
 You can validate on this on an airgap computer using [Ian Coleman’s popular open-source tool](https://iancoleman.io/bip39/) and [Jameson Lopp's xpub converter for SLIP132 version byte encoding](https://jlopp.github.io/xpub-converter/).
-[Here is a screenshot of proving accuracy of this derivation path from the xpub](blinding_from_vpub.png), and [here is a screenshot assuming you have access to their seed phrase](blinding_from_seed_phrase.png) (SLIP132 version byte encoding [here](blinded_tpub_to_vpub.png)).
+
+Derivation path from xpub:
+
+![image](blinding_from_vpub.png)
+
+Derivation path from seed phrase:
+
+![image](blinding_from_seed_phrase.png)
+
+(SLIP132 version byte encoding [here](blinded_tpub_to_vpub.png)).
+
+
+</details>
+
 
 ### Create Output Descriptors
 
