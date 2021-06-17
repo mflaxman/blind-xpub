@@ -493,7 +493,9 @@ Regardless of whether this proposal is implemented widely (with or without the a
 
 For example, assume:
 1. HODLer encrypts the output descriptors, and uses Shamir's Secret Sharing Scheme to divide the decryption key used into `2-of-n` parts (arbitrary but useful threshold).
-1. Each of `n` secure location has: `1` unique seed phrase (perhaps etched in metal), `1` unique Shamir Share, and the same encrypted copy of the output descriptors.
+1. Each of `n` secure location has: `1` unique seed phrase (perhaps etched in metal), `1` unique Shamir Share, and the same encrypted copy of the output descriptors
+
+Note that the encrypted output descriptors could be kept redundantly in *many* less secure locations (perhaps even cloud storage), as `2` shamir shares are needed to decrypt the output descriptors (and it alone cannot be used to spend funds).
 
 Then, as long as you are able to access `2` secure locations, you can recover your output descriptors.
 It would then be possible to have something like a `3-of-5` on-chain `p2wsh` multisig, where `2-of-5` Shamir Shards are needed to recover the decryption key and recover the output descriptors.
