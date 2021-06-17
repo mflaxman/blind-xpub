@@ -128,8 +128,12 @@ Remember that Seed Phrase B is held by our trust-minimized third party.
 We blind seed B's xpub using `buidl`'s built in [multiwallet.py](https://twitter.com/mflaxman/status/1321503036724989952).
 We use the default, which is 124 bits of entropy from a CSPRNG.
 This should make brute-forcing impossible.
-A depth of 4 in our BIP32 path gives us `124` bits: `~(2^31)^4`
+A depth of 4 in our BIP32 path gives us `124` bits: `~(2^31)^4`:
 
+![image](blinding.png)
+
+<details>
+  <summary>(text version)</summary>
 ```
 $ python3 multiwallet.py 
 Welcome to multiwallet, the stateless multisig bitcoin wallet.
@@ -155,8 +159,7 @@ Important notes:
   - In order to spend from this blinded xpub, you must have BOTH the seed phrase AND the blinded xpub key record (which will be included in your account map before you can receive funds).
 ```
 
-This looks better when formatted with nice colors in the CLI app:
-![image](blinding.png)
+</details>
 
 #### Verification
 
