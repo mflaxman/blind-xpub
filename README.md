@@ -45,7 +45,7 @@ In this scheme, we demonstrate using a large and randomly generated BIP32 path t
 If a bad actor gets unauthorized access to that BIP39 seed (and passphrase, if applicable), they learn *nothing* about what it protects.
 This scheme enables 1 (or more) semi-trusted collaborative custodians (e.g. a lawyer, accountant, heir, close friend, "uncle Jim" bitcoiner, collaborative custody service, etc) to participate in a multisig quorum with *zero* knowledge of what they're protecting, and can supply geographic/jurisdictional diversity.
 
-We demonstrate that this proposal is already live on bitcoin mainnet, is compatible with existing multisig hardware wallets, and has positive implications for both privacy and trust-minimized collaborative key-holders.
+This scheme is already live on bitcoin mainnet, is compatible with existing multisig hardware wallets and coordinator softwares, and has positive implications for both privacy and trust-minimized collaborative key-holders.
 
 ## Walk-through
 
