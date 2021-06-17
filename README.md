@@ -471,7 +471,7 @@ One problem of this proposal is that if you lost your output descriptors and sti
 If you have regular/unblinded paths, then recovery of all `n` seeds would be sufficient to recover your output descriptors.
 
 The current best practices are to backup your output descriptors with each seed, but let's assume that a HODLer doesn't do that, or over a long enough time perhaps their USB drives failed and/or paper got wet.
-One creative idea (HT @stepansnigirev) is to feed data from the seeeds into a pseudo-random function and use that output to encode bip32 paths.
+One creative idea (HT @stepansnigirev) is to feed data from the seeds into a pseudo-random function and use that output to encode bip32 paths.
 Because the algorithm is deterministic, it would be possible to use that data to recover the output descriptors with all `n` seeds.
 Note that if you lose your output descriptors and have `n-1` seeds (say `4-of-5` seeds in a `3-of-5` multisig) that is **not** sufficient to recover your output descriptors.
 
@@ -481,7 +481,7 @@ deterministic_bip32path( sha256("2 xpub_A xpub_B xpub_C") )
 ```
 
 See [here](https://github.com/mflaxman/blind-xpub/blob/deterministic-paths/deterministic_paths.py) for a more complex working version that includes some more advanced features:
-1. Lexographic sorting of xpubs (not just `sortedmulti` at the child pubkey level, but sorting the xpubs lexographically to always produce the same output)
+1. Lexographic sorting of xpubs (not just `sortedmulti` at the child pubkey level, but sorting the parent xpubs to always produce the same output)
 1. Ability to easily recover bip32 paths (and thus full output descriptors) even if you forget your `m` and/or which xpubs you blinded.
 1. Deterministically different (but unlinkable) bip32 paths for each xpub, so that publishing a bip32 path for 1 xpub does not leak any info to another xpub.
 1. An optional passphrase feature, which feeds extra entropy into the PRF, creating unlimited decoy multisig wallets.
