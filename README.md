@@ -134,6 +134,7 @@ A depth of 4 in our BIP32 path gives us `124` bits: `~(2^31)^4`:
 
 <details>
   <summary>(text version)</summary>
+
 ```
 $ python3 multiwallet.py 
 Welcome to multiwallet, the stateless multisig bitcoin wallet.
