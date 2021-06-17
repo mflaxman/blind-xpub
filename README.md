@@ -506,8 +506,14 @@ If that were to happen it would be very good for existing multisig setups, and a
 
 How does this compare to existing options?
 
-### Taproot
-TODO
+### Versus Taproot
+
+TODO: add more to this section.
+
+While Taproot offers some excellent privacy, transaction fee, and complex script template advantages, there are some negatives:
+* If past upgrades are any indication, it is going to be a **very** long time before multi-vendor multisig is available using taproot.
+* Even once available, you still need a way to backup the output descriptors along with each seed, so you're facing a very similar privacy problem (if 1 of your secure locations is compromised).
+* Taproot setup requires an extra round of interactivity (or a zero knowledge proof implementation), making it harder to setup.
 
 ### Versus Regular/Traditional/Unblinded Seeds
 While this protocol provides strong privacy, is it worth it?
