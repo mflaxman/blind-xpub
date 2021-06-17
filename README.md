@@ -237,7 +237,9 @@ Bitcoin Core (via Specter-Desktop), provides the following address:
   <summary>Caravan verification</summary>
 
 
-While outside the scope of this demo, it is possible to also generate watch-only addresses in [Caravan](https://unchained-capital.github.io/caravan/) using [this wallet configuration file](bitcoin-1-of-2-P2WSH-testing.json) ([screenshot](caravan_receive_address.png)).
+While outside the scope of this demo, it is possible to also generate watch-only addresses in [Caravan](https://unchained-capital.github.io/caravan/) using [this wallet configuration file](bitcoin-1-of-2-P2WSH-testing.json):
+
+![image](caravan_receive_address.png)
 
 
 </details>
