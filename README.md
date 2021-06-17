@@ -255,6 +255,7 @@ To spend from this multisig, *both* of the following are required:
 1. The complete output descriptors - this covers **all** seeds used in this multisig wallet, even if they're not used to co-sign the given transaction
 
 We will return the funds to the testnet faucet address:
+
 `mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt`
 
 #### Prepare Transaction
@@ -267,7 +268,23 @@ The corresponding PSBT it displays is (image version for airgap signers [here](p
 cHNidP8BAFUCAAAAATVN3DO8pS2XldfMpqzYjO0nKmsg7qM9SyGfY3py0O5nAAAAAAD9////ASWGAQAAAAAAGXapFDRKD0jKFQ7CuQOBdmC5tosTpnAmiKwAAAAAAAEAlAIAAAABuyYafpgmVz6R0nydIwQhLhK9wyq+MdzpZ2eYwfXFb0sAAAAAFxYAFNeBq/yMVx5pEh75uUCeQEenBts2/v///wKghgEAAAAAACIAINN0kd3+b87Zbmyp+gz8Ohv3mQr+AjvHeIagMSzdmEzgRxk5AAAAAAAWABSximIn3PYA1OH6B/cCwK+yIu8LAFKOHgABASughgEAAAAAACIAINN0kd3+b87Zbmyp+gz8Ohv3mQr+AjvHeIagMSzdmEzgAQVHUSEDELg0dGMOr13U7TYY21H1qqau+SG9gzPtgUOqbqcdjU0hAz8uRBD7XX0++TpuqGBjHSbo0olYV8KAZj3e9ovghmHxUq4iBgMQuDR0Yw6vXdTtNhjbUfWqpq75Ib2DM+2BQ6pupx2NTSwlU8S4MAAAgAEAAIAAAACAAgAAgJ2K93mFc/VzNmNZa01lm1MAAAAAAAAAACIGAz8uRBD7XX0++TpuqGBjHSbo0olYV8KAZj3e9ovghmHxHKqRfnUwAACAAQAAgAAAAIACAACAAAAAAAAAAAAAAA==
 ```
 
+<details>
+  <summary>Caravan</summary>
+
+
+If you designate the transaction as a "Coldcard", Caravan can interact with buidl (because Caravan's Coldcard implementation is PSBT under-the-hood).
+
+Then, you can generate the transaction to sign using multiwallet ([text](psbt_from_caravan.txt) or [screenshot](psbt_from_caravan.png)) and relay this to your bitcoin node:
+
+![image](caravan_signed.png)
+
+
+</details>
+
+
 #### Sign Using Blinded Key
+
+This can also be performed on Specter-DIY, or using any other PSBT-native hardware wallet that doesn't artifically restrict bip32 paths.
 
 ![image](multiwallet_sellx12_blinded_spend.png)
 
@@ -335,11 +352,6 @@ cHNidP8BAFUCAAAAATVN3DO8pS2XldfMpqzYjO0nKmsg7qM9SyGfY3py0O5nAAAAAAD9////ASWGAQAA
 
 
 </details>
-
-#### Caravan
-If you designate the transaction as a "Coldcard", Caravan can interact with buidl (because Caravan's Coldcard implementation is PSBT under-the-hood).
-
-Then, you can generate the transaction to sign using multiwallet ([text](psbt_from_caravan.txt) or [screenshot](psbt_from_caravan.png)) and [relay this to your bitcoin node](caravan_signed.png).
 
 ### What We Accomplished
 
