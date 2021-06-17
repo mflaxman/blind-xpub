@@ -101,7 +101,9 @@ Public Key Record (from hardware wallet) in regular encoding:
 [2553c4b8/48h/1h/0h/2h]tpubDEiNuxUt4pKjKk7khdv9jfcS92R1WQD6Z3dwjyMFrYj2iMrYbk3xB5kjg6kL4P8SoWsQHpd378RCTrM7fsw4chnJKhE2kfbfc4BCPkVh6g9
 ```
 
-#### Buidl Verification
+
+<details>
+  <summary>buidl verification</summary>
 
 This could be generated in buidl as follows:
 ```
@@ -115,6 +117,9 @@ $ python3
 
 Note that we use [SLIP132](https://github.com/satoshilabs/slips/blob/master/slip-0132.md) version byte encoding to communicate unambiguously that we are `p2wsh` on testnet, but if you/your Coordinator software is smart then regular xpub/tpub can work great as well.
 `buidl` supports both (set `use_slip132_version_byte=False`), and [Jameson Lopp's convenient xpub converter](https://jlopp.github.io/xpub-converter/) can also convert for you if needed.
+
+</details>
+
 
 ### Blind 1 Seed Phrase
 
