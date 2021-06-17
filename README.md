@@ -175,7 +175,10 @@ In our case, we take the regular seed phrase A xpub (see [Seed Phrase A](#Seed-P
 
 That will also generate [this output descriptors PDF backup](investx12_sellx12_blinded_backup.pdf) (output descriptors only [here](account_map.png)).
 
-#### Buidl Verification
+
+
+<details>
+  <summary>buidl verification</summary>
 
 We run the following code in python:
 ```
@@ -206,6 +209,9 @@ Results:
 ```
 wsh(sortedmulti(1,[aa917e75/48h/1h/0h/2h]tpubDEZRP2dRKoGRJnR9zn6EoLouYKbYyjFsxywgG7wMQwCDVkwNvoLhcX1rTQipYajmTAF82kJoKDiNCgD4wUPahACE7n1trMSm7QS8B3S1fdy/0/*,[2553c4b8/48h/1h/0h/2h/2046266013/1945465733/1801020214/1402692941]tpubDNVvpMhdGTmQg1AT6muju2eUWPXWWAtUSyc1EQ2MxJ2s97fMqFZQbpzQM4gU8bwzfFM7KBpSXRJ5v2Wu8sY2GF5ZpXm3qy8GLArZZNM1Wru/0/*))#0lfdttke
 ```
+
+</details>
+
 
 ### Get Receive Address
 
