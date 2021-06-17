@@ -21,7 +21,7 @@ Bitcoin's multisig security model is a breakthrough in human ability to self-cus
 By comparison, it is impossible to `3-of-5` your gold.
 Multisig adoption has the power to reduce hacks/theft/loss in the bitcoin space by allowing users to make 1 (or more) catastrophic mistakes in their custody without putting funds at risk.
 
-However, multisig adoption currently suffer from a big problem: protecting your fund with `m-of-n` (i.e. `2-of-3`) pieces under current best practices means that there are now `n` locations where your privacy could be at risk.
+However, multisig adoption currently suffer from a big problem: protecting your fund with `m-of-n` (i.e. `2-of-3`) seeds under current best practices means that there are now `n` locations where your privacy could be at risk.
 While [Shamir's Secret Sharing Scheme is strictly inferior from a security perspective](https://btcguide.github.io/why-multisig-advanced#shamirs-secret-sharing-scheme), it does have the benefit that if someone gains access to `<m` shamir shares they learn *nothing* about what it protects.
 
 ### Privacy Leakage
@@ -42,32 +42,35 @@ Even if the direct outcome of this privacy leak isn't used to rob someone, this 
 
 In this scheme, we demonstrate using a large and randomly generated BIP32 path to blind a BIP39 seed (or more specifically the corresponding xpub) in a multisig quorum.
 If a bad actor gets unauthorized access to that BIP39 seed (and passphrase, if applicable), they learn *nothing* about what it protects.
-This scheme enables 1 (or more) semi-trusted collaborative custodians (e.g. a lawyer, accountant, heir, close friend, "uncle Jim" bitcoiner, collaborative custody service, etc) to participate in a multisig quorum with *zero* knowledge of what they're protecting, and can supply geographic/jurisdictional diversity.
+This scheme enables 1 (or more) semi-trusted collaborative custodians to participate in a multisig quorum with *zero* knowledge of what they're protecting, and can supply geographic/jurisdictional diversity.
 
-This scheme is already live on bitcoin mainnet, is compatible with existing multisig hardware wallets and coordinator softwares, and has positive implications for both privacy and trust-minimized collaborative key-holders.
+This scheme is already live on bitcoin mainnet, is compatible with existing multisig hardware wallets and coordinator softwares, and has positive implications for privacy, recoery, and trust-minimized collaborative key-holders.
 
 ## Walk-through
 
-For this demo, we'll use [Specter-Desktop](https://github.com/cryptoadvance/specter-desktop/) (powered by Bitcoin Core) as it's the de-facto standard for almost all new sovereign multisig users today.
+For this demo, we'll use [Specter-Desktop](https://github.com/cryptoadvance/specter-desktop/) (powered by Bitcoin Core) as it's the de-facto standard for almost all new sovereign multisig users in 2021.
 This should work for any Coordinator software that supports modern multisig standards ([ouput descriptors](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) and [PSBTs](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki)).
 We'll also duplicate the code in [buidl](https://github.com/buidl-bitcoin/buidl-python) as it's a no-dependency FOSS bitcoin implementation that provides full support for every step of the blinding protocol.
 For simplicity, we are going to blind just `1` seed phrase in a `1-of-2`, but it should be obvious how to expand this to a `2-of-3`, `3-of-5`, or any other quorum.
 At the end, we'll discuss implications for blinding all `m` seed phrases.
 
 ## Buidl Setup for Verification (not required)
-Easiest way (this should not throw an error):
+Easiest way to install and verify it's working:
 ```
 $ pip3 install buidl && python3
 >>> from buidl import *
 ```
 
-More secure way (this should not throw an error):
+<details>
+  <summary>More secure way</summary>
+
+Because `buidl` has no dependencies and is designed for airgap use, you don't actually need to install it:
 ```
 $ git clone https://github.com/buidl-bitcoin/buidl-python.git && cd buidl-python && python3
 >>> from buidl import *
 ```
-(because `buidl` has no dependencies and is designed for airgap use, you don't actually need to install it)
 
+</details>
 
 These verification steps can be performed with other open-source libraries, so we'll call out to them below as well.
 
@@ -125,9 +128,8 @@ Note that we use [SLIP132](https://github.com/satoshilabs/slips/blob/master/slip
 Remember that Seed Phrase B is held by our trust-minimized third party.
 
 We blind seed B's xpub using `buidl`'s built in [multiwallet.py](https://twitter.com/mflaxman/status/1321503036724989952).
-We use the default, which is 124 bits of entropy from a CSPRNG.
+We use the default entropy setting for a depth of 4 in our BIP32 path, or `(2^31)^4 ≈ 124 bits`.
 This should make brute-forcing impossible.
-A depth of 4 in our BIP32 path gives us `124` bits: `~(2^31)^4`:
 
 ![image](blinding.png)
 
@@ -167,11 +169,11 @@ Important notes:
 
 You can validate on this on an airgap computer using [Ian Coleman’s popular open-source tool](https://iancoleman.io/bip39/) and [Jameson Lopp's xpub converter for SLIP132 version byte encoding](https://jlopp.github.io/xpub-converter/).
 
-Derivation path from xpub:
+#### Derivation path from xpub:
 
 ![image](blinding_from_vpub.png)
 
-Derivation path from seed phrase:
+#### Derivation path from seed phrase:
 
 ![image](blinding_from_seed_phrase.png)
 
@@ -374,7 +376,7 @@ At the time of seed generation up until revealing the output descriptors (with s
 * Quorum information (`1-of-2` in this case)
 
 If the HODLer of this seed phrase were malicious (or compelled by a government), they would not be able to reveal *any* privacy information.
-Also, because this is built on top of existing BIP32 paths, it is *already* compatible with many existing hardware wallets and software libraries.
+Also, because this is built on top of existing BIP32 paths, it is *already* compatible with many existing wallet and coordinator libraries.
 
 Of course, this scheme requires that the blinded key holder be able to get access to the output descriptors in the event they are needed for recovery.
 Presumably, this privacy tradeoff is well worth it to the original key-holder if they are still alive but have lost access to their seed phrase.
@@ -467,24 +469,25 @@ There are two problems with these backups:
 
 ### Deterministic Paths
 
-One problem of this proposal is that if you lost your output descriptors and still had **all** `n` seeds, you would be unable to recover your funds.
-If you have regular/unblinded paths, then recovery of all `n` seeds would be sufficient to recover your output descriptors.
+One problem of this proposal is that if you lost your output descriptors yet still had **all** `n` seeds, you would be unable to recover your funds.
+If you have regular/unblinded paths, then recovery of all `n` seeds would be sufficient to deterministically regenerate your output descriptors.
 
-The current best practices are to backup your output descriptors with each seed, but let's assume that a HODLer doesn't do that, or over a long enough time perhaps their USB drives failed and/or paper got wet.
+The current best practices are to backup your output descriptors with each seed, but let's assume that a HODLer doesn't do that, or over a long enough time perhaps their digital media failed and/or paper got wet.
 One creative idea (HT @stepansnigirev) is to feed data from the seeds into a pseudo-random function and use that output to encode bip32 paths.
 Because the algorithm is deterministic, it would be possible to use that data to recover the output descriptors with all `n` seeds.
-Note that if you lose your output descriptors and have `n-1` seeds (say `4-of-5` seeds in a `3-of-5` multisig) that is **not** sufficient to recover your output descriptors.
+Note that if you lose your output descriptors and have `n-1` seeds (say `4-of-5` seeds in a `3-of-5` multisig) that is **not sufficient** to recover your output descriptors.
 
-One version of the deterministic algorithm for a 2-of-3 might be something like:
+A simple version of the deterministic algorithm for a 2-of-3 might be something like:
 ```
-deterministic_bip32path( sha256("2 xpub_A xpub_B xpub_C") )
+hash_digest = sha256("2 xpub_A xpub_B xpub_C")
+bip32_path = deterministic_path_from_entropy(hash_digest)
 ```
 
 See [here](https://github.com/mflaxman/blind-xpub/blob/deterministic-paths/deterministic_paths.py) for a more complex working version that includes some more advanced features:
 1. Lexographic sorting of xpubs (not just `sortedmulti` at the child pubkey level, but sorting the parent xpubs to always produce the same output)
 1. Ability to easily recover bip32 paths (and thus full output descriptors) even if you forget your `m` and/or which xpubs you blinded.
-1. Deterministically different (but unlinkable) bip32 paths for each xpub, so that publishing a bip32 path for 1 xpub does not leak any info to another xpub.
-1. An optional passphrase feature, which feeds extra entropy into the PRF, creating unlimited decoy multisig wallets.
+1. Deterministically unique and unlinkable bip32 paths for each blinded xpub, so that publishing a bip32 path for 1 xpub does not leak any info to other xpubs.
+1. An optional user-passphrase feature, which feeds extra entropy into the PRF, creating unlimited decoy multisig wallets.
 This feature would be strictly **experts only**.
 
 ### SSSS for Output Descriptors
@@ -493,7 +496,7 @@ Regardless of whether this proposal is implemented widely (with or without the a
 
 For example, assume:
 1. HODLer encrypts the output descriptors, and uses Shamir's Secret Sharing Scheme to divide the decryption key used into `2-of-n` parts (arbitrary but useful threshold).
-1. Each of `n` secure location has: `1` unique seed phrase (perhaps etched in metal), `1` unique Shamir Share, and the same encrypted copy of the output descriptors
+1. Each of `n` secure locations has: `1` unique seed phrase (perhaps etched in metal), `1` unique Shamir Share, and a copy of the same encrypted output descriptors
 
 Note that the encrypted output descriptors could be kept redundantly in *many* less secure locations (perhaps even cloud storage), as `2` shamir shares are needed to decrypt the output descriptors (and it alone cannot be used to spend funds).
 
@@ -516,23 +519,22 @@ While Taproot offers some excellent privacy, transaction fee, and complex script
 * Taproot setup requires an extra round of interactivity (or a zero knowledge proof implementation), making it harder to setup.
 
 ### Versus Regular/Traditional/Unblinded Seeds
-While this protocol provides strong privacy, is it worth it?
+While this protocol provides strong privacy guarantees, is it worth it?
 Regular (unblinded) seeds have some advantages:
 * Complexity is the enemy of security.
-Counterpoint: the biggest form of complexity is storing the output descriptors, which is already the highly encouraged best practice for multisig.
+Counterpoint: the biggest form of complexity is backup up the output descriptors, which is already the best practice for multisig.
 * Greater hardware wallet support.
 Counterpoint: I hope all hardware wallets will support enhanced privacy in the future.
-* If you don't keep a copy of the output descriptors, but still have all `m` seed phrases, you can still recover your funds.
+* If you don't keep a copy of the output descriptors, but still have all `n` seed phrases, you can still recover your funds.
 Counterpoint: you should never lose your output descriptors, as they should be backed up in many places.
-This is already a well-understood best practice for all multisig users.
 Update: ** [the deterministic paths version of this protocol](#deterministic-paths) eliminates this concern!
 
 ### Versus Secret BIP39 Passphrases
 Another way to accomplish the same goal would be to [use a unique passphrase for each BIP39 seed](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37) and not store that passphrase with the BIP39 seed (keep it stored somewhere else).
-I argue that using BIP 32 paths is *strictly superior*.
+I argue that using BIP32 paths is *strictly superior*.
 * Most hardware wallets have bad input devices (no keyboard), so typing a long passphrases at setup/use is quite challenging.
 The passphrase is also required to "unlock" the HWW, vs just using an existing mechanism (output descriptors) to transfer unlocking data to the HWW.
-In this case of QR-based wallets, this unlocking is currently a magical UX; all you need to do is scan the Output Descriptors.
+In this case of QR-based wallets, this unlocking is currently a magical UX; all you need to do is scan the Output Descriptors and your hardware wallet is ready to go.
 * These unique passphrases must be stored somewhere.
 Of course, this could just be at the coordinator, but there is currently no mechanism/standard for how to do that (unlike BIP32 paths).
 * Requires visiting cold storage for re-use.
@@ -540,7 +542,7 @@ For an "Uncle Jim" bitcoiner to participate in many different friends or family 
 * If you want to use a regular BIP39 passphrase in addition to a blinding passphrase, that becomes complex.
 You would probably just do something like append the regular passphrase to the end of the blinding passphrase, but this is messy (was there a separation character?).
 * Humans are terrible at generating passphrases.
-While it would be possible to have software generate the passphrase, that would be somewhat confusing as passwords have always been user-supplied; you'd likely have users making up bad ones.
+While it would always be possible to have good software generate the passphrase, that would be confusing as passwords are typically user-supplied.
 * From the author of [the original passphrase-based proposal](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37#discussioncomment-627710): "I like your privacy proposal (using long unpredictable BIP32 path) better than mine (using BIP39 passwords)."
 
 ## References
