@@ -552,7 +552,7 @@ That said, if past upgrades are any indication, vendor adoption is going to take
 
 Because taproot allows for *much* larger scripts (while keeping fees affordable), we could see a big increase in the number of co-signers/locations used.
 For example, you could have:
-* A multisig that degrades from a `4-of-7` to `3-of-7`, then `2-of-7`, and finally `1-of-7`, which each degredation taking place every `5` years.
+* A multisig that degrades from a `4-of-7` to `3-of-7`, then `2-of-7`, and finally `1-of-7`, with each degradation taking place every `5` years.
 * Combinations where you and your family hold seeds with different weighting: `2` of your own seeds are needed to spend funds, but `2` of your family's seeds have the same weighting as `1` of your seeds.
 
 Taproot also uses output descriptors to describe addresses, so you're facing a very similar privacy problem if you store output descriptors with each seed phrase (recommended) and 1 of your secure locations is compromised.
