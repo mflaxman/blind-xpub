@@ -411,7 +411,7 @@ What's amazing about this protocol, is that because it takes advantage of existi
 | Trezor                | :grey_question:    | :grey_question:    | :grey_question:   |
 | Passport              | :grey_question:    | :grey_question:    | :grey_question:   |
 | Fully Noded / Gordian | :grey_question:    | :grey_question:    | :grey_question:   |
-| Sparrow               | :grey_question:    | :grey_question     | :grey_question:   |
+| Sparrow               | :grey_question:    | :grey_question:    | :grey_question:   |
 
 Under regular use, Coldcard cannot import enhanced-privacy multisig wallets [for address validation](coldcard_import_fail.jpeg) nor [sign a transaction](coldcard_import_fail.jpeg) (even with a regular/unblinded seed).
 However, if you disable essential safety checks (`Settings > Multisig Wallets > Skip Checks`), then it does technically work.
