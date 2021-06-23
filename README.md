@@ -246,17 +246,24 @@ Bitcoin Core (via Specter-Desktop), provides the following address:
 'tb1q6d6frh07dl8djmnv48aqelp6r0mejzh7qgauw7yx5qcjehvcfnsqxc6lly'
 ```
 
-
 </details>
 
 
 <details>
   <summary>Caravan verification</summary>
 
-
-While outside the scope of this demo, it is possible to also generate watch-only addresses in [Caravan](https://unchained-capital.github.io/caravan/) using [this wallet configuration file](bitcoin-1-of-2-P2WSH-testing.json):
+While outside the scope of this demo, you can generate watch-only addresses with [Caravan](https://unchained-capital.github.io/caravan/) using [this wallet configuration file](bitcoin-1-of-2-P2WSH-testing.json) (derived from the output descriptors generated above):
 
 ![image](caravan_receive_address.png)
+
+</details>
+
+<details>
+  <summary>Sparrow verification</summary>
+
+While outside the scope of this demo, you can generate watch-only addresses with [Sparrow](https://sparrowwallet.com/) using the output descriptors (the thing starting with `wsh(sortedmulti(...`, see [Create Output Descriptors](#create-output-descriptors) above):
+
+![image](sparrow_recieve_address.png)
 
 
 </details>
@@ -399,36 +406,38 @@ Another might be to blind the heir's key (so that they don't know what they're i
 
 What's amazing about this protocol, is that because it takes advantage of existing standards (BIP32 and output descriptors) it already works on the bitcoin network!
 
-#### Signers (Hardware Wallets)
+#### Signers
 
-| Device                | Display Addresses  | Sign Standard Path | Sign Blinded Path |
-|-----------------------|--------------------|--------------------|-------------------|
-| Specter-DIY           | :white_check_mark: | :white_check_mark: | :white_check_mark:|
-| multiwallet.py        | :white_check_mark: | :white_check_mark: | :white_check_mark:|
-| Keystone              | :white_check_mark: | :white_check_mark: | :x:               |
-| BitBox02              | :white_check_mark: | :white_check_mark: | :x:               |
-| Coldcard              | :warning:          | :warning:          | :warning:         |
-| Trezor                | :grey_question:    | :grey_question:    | :grey_question:   |
-| Passport              | :grey_question:    | :grey_question:    | :grey_question:   |
-| Fully Noded / Gordian | :grey_question:    | :grey_question:    | :grey_question:   |
-| Sparrow               | :grey_question:    | :grey_question:    | :grey_question:   |
+| Name                  | Type       | Display Addresses  | Sign Standard Path | Sign Blinded Path |
+|-----------------------|------------|--------------------|--------------------|-------------------|
+| Specter-DIY           | Hardware   | :white_check_mark: | :white_check_mark: | :white_check_mark:|
+| Sparrow               | Software   | :white_check_mark: | :white_check_mark: | :white_check_mark:|
+| multiwallet.py        | Software   | :white_check_mark: | :white_check_mark: | :white_check_mark:|
+| Keystone              | Hardware   | :white_check_mark: | :white_check_mark: | :x:               |
+| BitBox02              | Hardware   | :white_check_mark: | :white_check_mark: | :x:               |
+| Coldcard              | Hardware   | :warning:          | :warning:          | :warning:         |
+| Trezor                | Hardware   | :grey_question:    | :grey_question:    | :grey_question:   |
+| Passport              | Hardware   | :grey_question:    | :grey_question:    | :grey_question:   |
+| Fully Noded / Gordian | Hardware   | :grey_question:    | :grey_question:    | :grey_question:   |
+
+TODO: fill in the blanks and add others
 
 Under regular use, Coldcard cannot import enhanced-privacy multisig wallets [for address validation](coldcard_import_fail.jpg) nor [sign a transaction](coldcard_import_fail.jpg) (even with a regular/unblinded seed).
 However, if you disable essential safety checks (`Settings > Multisig Wallets > Skip Checks`), then it does technically work.
 
-TODO: fill in the blanks and add others
-
 #### Coordinator Software
 
-| Device           | Display Addresses     | Coordinate TX Signing        |
+| Name             | Display Addresses     | Coordinate TX Signing        |
 |------------------|-----------------------|------------------------------|
 | Specter-Desktop  | :white_check_mark:    | :white_check_mark:           |
 | Caravan          | :white_check_mark:    | :white_check_mark: (sort of) |
-| Sparrow          | :grey_question:       | :grey_question:              |
+| Sparrow          | :white_check_mark:    | :white_check_mark:           |
 | Fully Noded      | :grey_question:       | :grey_question:              |
 | Nunchuk          | :grey_question:       | :grey_question:              |
 
 TODO: fill in the blanks and add others
+
+To use Caravan for TX signing you must designate each device as a "Coldcard", since under-the-hood that is just the PSBT standard.
 
 ### Blinding Multiple Seeds
 
