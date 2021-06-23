@@ -413,7 +413,7 @@ What's amazing about this protocol, is that because it takes advantage of existi
 | Fully Noded / Gordian | :grey_question:    | :grey_question:    | :grey_question:   |
 | Sparrow               | :grey_question:    | :grey_question:    | :grey_question:   |
 
-Under regular use, Coldcard cannot import enhanced-privacy multisig wallets [for address validation](coldcard_import_fail.jpeg) nor [sign a transaction](coldcard_import_fail.jpeg) (even with a regular/unblinded seed).
+Under regular use, Coldcard cannot import enhanced-privacy multisig wallets [for address validation](coldcard_import_fail.jpg) nor [sign a transaction](coldcard_import_fail.jpg) (even with a regular/unblinded seed).
 However, if you disable essential safety checks (`Settings > Multisig Wallets > Skip Checks`), then it does technically work.
 
 TODO: fill in the blanks and add others
