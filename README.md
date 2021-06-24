@@ -126,6 +126,8 @@ This should make brute-forcing impossible.
 
 ![image](blinding.png)
 
+*Confusing note: this run of the program is not what was used in these examples, see text below for the actual results.*
+
 <details>
   <summary>(text version)</summary>
 
