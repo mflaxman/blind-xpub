@@ -548,7 +548,7 @@ While it would always be possible to have good software generate the passphrase,
 
 ### Versus Taproot
 
-TODO: confirm accuracy of this section. I am still learning.
+TODO: confirm accuracy of this section.
 
 Taproot offers compelling privacy, transaction fee, and complex script template advantages.
 That said, if past upgrades are any indication, vendor adoption is going to take a **very** long time (especially for multisig which still has limited support from hardware wallets and tends to get the least updates/attention).
