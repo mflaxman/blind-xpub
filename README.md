@@ -421,14 +421,14 @@ However, if you disable essential safety checks (`Settings > Multisig Wallets > 
 | Name             | Display Addresses     | Coordinate TX Signing        |
 |------------------|-----------------------|------------------------------|
 | Specter-Desktop  | :white_check_mark:    | :white_check_mark:           |
-| Caravan          | :white_check_mark:    | :white_check_mark: (sort of) |
+| Caravan          | :white_check_mark:    | :white_check_mark:           |
 | Sparrow          | :white_check_mark:    | :white_check_mark:           |
 | Fully Noded      | :grey_question:       | :grey_question:              |
 | Nunchuk          | :grey_question:       | :grey_question:              |
 
 TODO: fill in the blanks and add others
 
-To use Caravan for TX signing you must designate each device as a "Coldcard", since under-the-hood that is just the PSBT standard.
+Note: to use Caravan for TX signing with PSBTs you must designate each Signer as a "Coldcard", since under-the-hood that is just the PSBT standard.
 
 ### Blinding Multiple Seeds
 
