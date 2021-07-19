@@ -22,11 +22,10 @@ By comparison, it is impossible to `3-of-5` your gold.
 Multisig adoption has the power to reduce hacks/theft/loss in the bitcoin space by allowing users 1 (or more) catastrophic errors in their custody without putting any funds at risk.
 
 However, multisig adoption currently suffer from a big problem: protecting your funds with `m-of-n` (i.e. `2-of-3`) seeds under current best practices means that there are now `n` locations where your privacy could be at risk.
-While [Shamir's Secret Sharing Scheme is strictly inferior from a security perspective](https://btcguide.github.io/why-multisig-advanced#shamirs-secret-sharing-scheme), it does have the benefit that if someone gains access to `<m` shamir shares they learn *nothing* about what those Shamir Shares protect.
 
 ### Privacy Leakage
 
-Standard/default BIP32 paths make it so that if a bad actor gets unauthorized access to a BIP39 seed phrase, they could scan the blockchain for spent pubkeys in redeem scripts to learn about what funds that seed protects and how many other seeds are needed for access.
+Standard/default BIP32 path usage makes it so that if a bad actor gets unauthorized access to a BIP39 seed phrase, they can scan the blockchain for spent pubkeys in redeem scripts to learn about what funds that seed protects and how many other seeds are needed for access.
 For example, they might learn the following:
 * The stolen seed phrase was party to a massive bitcoin transaction yesterday.
 Note that this is the case even if this seed phrase did not produce a signature in the transaction and was just sitting in cold storage.
@@ -569,6 +568,12 @@ As taproot is designed to be compatible with ECDSA private keys (and thus BIP39)
 Taproot has the nice advantage that script path spends only leak information about keys that were used to sign the transaction (other keys in deep cold storage that are still part of the quorum leak no information).
 Taproot alone might be sufficient for blinded 3rd party seed phrases, where a trust-minimized recovery-key holder must be given output descriptors to cosign (and then privacy with them is forever gone).
 However, taproot offers no benefit for first-party key-holders who want to blind their own seed phrases (that may have been used to spend before).
+
+### Shamir's Secret Sharing Scheme
+
+While [Shamir's Secret Sharing Scheme with single sig is strictly inferior from a security perspective](https://btcguide.github.io/why-multisig-advanced#shamirs-secret-sharing-scheme), it does have the benefit that if someone gains access to `<m` shamir shares they learn *nothing* about what those Shamir Shares protect.
+
+Of course there are [many reasons why multisig is strictly superior](https://btcguide.github.io/why-multisig), and the potential privacy loss that multisig adds is completely eliminated using this proposal.
 
 ## References
 * [Blockchain commons thread on nosy signatories](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37)
