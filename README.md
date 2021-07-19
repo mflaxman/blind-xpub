@@ -21,7 +21,7 @@ Bitcoin's multisig security model is a breakthrough in human ability to self-cus
 By comparison, it is impossible to `3-of-5` your gold.
 Multisig adoption has the power to reduce hacks/theft/loss in the bitcoin space by allowing users 1 (or more) catastrophic errors in their custody without putting any funds at risk.
 
-However, multisig adoption currently suffer from a big problem: protecting your fund with `m-of-n` (i.e. `2-of-3`) seeds under current best practices means that there are now `n` locations where your privacy could be at risk.
+However, multisig adoption currently suffer from a big problem: protecting your funds with `m-of-n` (i.e. `2-of-3`) seeds under current best practices means that there are now `n` locations where your privacy could be at risk.
 While [Shamir's Secret Sharing Scheme is strictly inferior from a security perspective](https://btcguide.github.io/why-multisig-advanced#shamirs-secret-sharing-scheme), it does have the benefit that if someone gains access to `<m` shamir shares they learn *nothing* about what those Shamir Shares protect.
 
 ### Privacy Leakage
