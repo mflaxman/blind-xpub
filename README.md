@@ -181,9 +181,7 @@ In our case, we take the regular seed phrase A xpub (see [Seed Phrase A](#Seed-P
 
 ![image](1of2_p2wsh_sortedmulti.png)
 
-That will also generate [this PDF backup of the output descriptors](investx12_sellx12_blinded_backup.pdf) (output descriptors only [here](account_map.png)).
-
-TODO: add Specter-Desktop export here.
+That will also generate a backup of the output descriptors[in pdf](investx12_sellx12_blinded_backup.pdf), [json](investx12_sellx12BLINDED.json), and [as a QR code](account_map.png).
 
 
 <details>
