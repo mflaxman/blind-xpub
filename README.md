@@ -300,7 +300,7 @@ Then, you can generate the transaction to sign using multiwallet ([text](psbt_fr
 
 #### Sign Using Blinded Key
 
-This can also be performed on Specter-DIY, or using any other PSBT-native hardware wallet that doesn't artifically restrict bip32 paths.
+This can also be performed on Specter-DIY, or using any other PSBT-native hardware wallet that doesn't artifically restrict BIP32 paths.
 
 ![image](multiwallet_sellx12_blinded_spend.png)
 
@@ -484,7 +484,7 @@ A new propblem introduced by this proposal is that if you lost your output descr
 This is not the case with regular/unblinded paths, where recovery of all `n` seeds is sufficient to deterministically regenerate your output descriptors.
 
 Current best practices are to backup your output descriptors with each seed, but let's assume that a HODLer doesn't do that, or over a long enough time perhaps the digital media and/or paper they used failed.
-One creative idea from [@stepansnigirev](https://github.com/stepansnigirev) is to feed data from the public key records into a pseudo-random function and use that output to encode bip32 paths.
+One creative idea from [@stepansnigirev](https://github.com/stepansnigirev) is to feed data from the public key records into a pseudo-random function and use that output to encode BIP32 paths.
 Because the algorithm is deterministic, it would be possible to use that data to regenerate the output descriptors with all `n` seeds.
 
 A simple version of the deterministic algorithm for a 2-of-3 might be something like:
@@ -495,13 +495,13 @@ bip32_path = deterministic_path_from_entropy(hash_digest)
 
 See [here](https://github.com/mflaxman/blind-xpub/blob/deterministic-paths/deterministic_paths.py) for a more complex working version that includes some more advanced features:
 1. Lexicographic sorting of xpubs (not just `sortedmulti` at the child pubkey level, but sorting the parent xpubs to always produce the same PRF input)
-1. Ability to easily recover bip32 paths (and thus full output descriptors) even if you forget your quorum threshold (`m`) and/or which of your xpubs you blinded.
-1. Deterministically unique and unlinkable bip32 paths for each blinded xpub, so that publishing a bip32 path for 1 xpub does not leak any info to other xpubs.
+1. Ability to easily recover BIP32 paths (and thus full output descriptors) even if you forget your quorum threshold (`m`) and/or which of your xpubs you blinded.
+1. Deterministically unique and unlinkable BIP32 paths for each blinded xpub, so that publishing a BIP32 path for 1 xpub does not leak any info to other xpubs.
 1. An optional user-passphrase feature, which feeds extra entropy into the PRF, creating unlimited decoy multisig wallets.
 This feature would be strictly **experts only** and disabled by default.
 
 Note that just like regular/unblinded multisig commonly used today, if you lose your output descriptors and have `n-1` seeds (say `4-of-5` seeds in a `3-of-5` multisig) that is still **not sufficient** to regnerate your output descriptors.
-Determinitic bip32 paths is only useful if you have all `n` seed phrases but lost your output descriptors.
+Determinitic BIP32 paths is only useful if you have all `n` seed phrases but lost your output descriptors.
 
 ### SSSS for Output Descriptors
 
@@ -516,7 +516,7 @@ Note that the encrypted output descriptors could be kept redundantly in *many* l
 Then, as long as you are able to access `2` secure locations, you can recover your full output descriptors.
 It would then be possible to have something like a `3-of-5` on-chain `p2wsh` multisig, where `2-of-5` Shamir Shards are needed to recover the decryption key and recover the output descriptors.
 
-If that were to happen it would be very good for existing multisig setups, and also it would work excellently with these secret bip32 paths.
+If that were to happen it would be very good for existing multisig setups, and also it would work excellently with these secret BIP32 paths.
 
 ## Comparison to Other Protocols
 
