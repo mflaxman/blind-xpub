@@ -499,7 +499,7 @@ See [here](https://github.com/mflaxman/blind-xpub/blob/deterministic-paths/deter
 This feature would be strictly **experts only** and disabled by default.
 
 Note that just like regular/unblinded multisig commonly used today, if you lose your output descriptors and have `n-1` seeds (say `4-of-5` seeds in a `3-of-5` multisig) that is still **not sufficient** to regenerate your output descriptors.
-Determinitic BIP32 paths is only useful if you have all `n` seed phrases but lost your output descriptors.
+Deterministic BIP32 paths is only useful if you have all `n` seed phrases but lost your output descriptors.
 
 ### SSSS for Output Descriptors
 
