@@ -31,7 +31,7 @@ For example, they might learn the following:
 Note that this is the case even if this seed phrase did not produce a signature in the transaction and was just sitting in cold storage.
 * The transaction appears to have had a large change output sent back to itself, so this seed phrase is likely still actively being used to protect (at least) that much bitcoin.
 * The transaction was a `2-of-3` of type `p2wsh`, so only 1 more seed phrase (along with the output descriptors) is needed to spend funds.
-* This wallet engages in similiar transactions each Friday at ~4pm local time.
+* This wallet engages in similar transactions each Friday at ~4pm local time.
 
 Even if the direct outcome of this privacy leak isn't used to rob someone, this information can be used in other nefarious ways:
 * A government could subpoena a bank to look inside a safe deposit box to find a BIP39 seed phrase (say on a metal plate).
@@ -49,7 +49,7 @@ This scheme is already live on bitcoin mainnet, is compatible with existing mult
 ## Walk-through
 
 For this demo, we'll use [Specter-Desktop](https://github.com/cryptoadvance/specter-desktop/) (powered by Bitcoin Core) as it's the de-facto standard for almost all new sovereign multisig users in 2021.
-This should work for any Coordinator software that supports modern multisig standards ([ouput descriptors](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) and [PSBTs](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki)).
+This should work for any Coordinator software that supports modern multisig standards ([output descriptors](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) and [PSBTs](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki)).
 We'll also duplicate the code in [buidl](https://github.com/buidl-bitcoin/buidl-python) as it's a no-dependency FOSS bitcoin implementation that provides full support for every step of the blinding protocol.
 For simplicity, we are going to blind just `1` seed phrase in a `1-of-2`, but it should be obvious how to expand this to a `2-of-3`, `3-of-5`, or any other quorum.
 At the end, we'll discuss implications for blinding all `n` seed phrases.
@@ -181,7 +181,7 @@ In our case, we take the regular seed phrase A xpub (see [Seed Phrase A](#Seed-P
 
 ![image](1of2_p2wsh_sortedmulti.png)
 
-That will also generate a backup of the output descriptors[in pdf](investx12_sellx12_blinded_backup.pdf), [json](investx12_sellx12BLINDED.json), and [as a QR code](account_map.png).
+That will also generate a backup of the output descriptors [in pdf](investx12_sellx12_blinded_backup.pdf), [json](investx12_sellx12BLINDED.json), and [as a QR code](account_map.png).
 
 
 <details>
@@ -253,7 +253,7 @@ While outside the scope of this demo, you can generate watch-only addresses with
 
 While outside the scope of this demo, you can generate watch-only addresses with [Sparrow](https://sparrowwallet.com/) using the output descriptors (the thing starting with `wsh(sortedmulti(...`, see [Create Output Descriptors](#create-output-descriptors) above):
 
-![image](sparrow_recieve_address.png)
+![image](sparrow_receive_address.png)
 
 
 </details>
@@ -298,7 +298,7 @@ Then, you can generate the transaction to sign using multiwallet ([text](psbt_fr
 
 #### Sign Using Blinded Key
 
-This can also be performed on Specter-DIY, or using any other PSBT-native hardware wallet that doesn't artifically restrict BIP32 paths.
+This can also be performed on Specter-DIY, or using any other PSBT-native hardware wallet that doesn't arbitrarily restrict BIP32 paths.
 
 ![image](multiwallet_sellx12_blinded_spend.png)
 
@@ -469,7 +469,7 @@ Backing up output descriptors is a new problem that multisig introduces, regardl
 Most new users don't realize that spending from a multisig wallet requires access to not only `m-of-n seed phrases` but also the output descriptors (public key information) for all `n` seeds.
 Under current best practices (regular/unblinded seeds), output descriptors can easily be regenerated from all `n` seed phrases, but it is impossible to regenerate output descriptors from `n-1` seed phrases.
 
-This means that if a user stores their funds in a `3-of-5` multisig wallet and loses only `1` seed (meaning that they still have acccess to the other `4` seed phrases), the only way they can spend the associated funds is if they have a copy of their output descriptors.
+This means that if a user stores their funds in a `3-of-5` multisig wallet and loses only `1` seed (meaning that they still have access to the other `4` seed phrases), the only way they can spend the associated funds is if they have a copy of their output descriptors.
 For this reason, **backups of output descriptors are already essential!**
 
 There are two problems with these backups:
@@ -478,7 +478,7 @@ There are two problems with these backups:
 
 ### Deterministic Paths
 
-A new propblem introduced by this proposal is that if you lost your output descriptors yet still had access to **all** `n` seeds, you would be unable to regenerate the output descriptors needed to access your funds.
+A new problem introduced by this proposal is that if you lost your output descriptors yet still had access to **all** `n` seeds, you would be unable to regenerate the output descriptors needed to access your funds.
 This is not the case with regular/unblinded paths, where recovery of all `n` seeds is sufficient to deterministically regenerate your output descriptors.
 
 Current best practices are to backup your output descriptors with each seed, but let's assume that a HODLer doesn't do that, or over a long enough time perhaps the digital media and/or paper they used failed.
@@ -498,7 +498,7 @@ See [here](https://github.com/mflaxman/blind-xpub/blob/deterministic-paths/deter
 1. An optional user-passphrase feature, which feeds extra entropy into the PRF, creating unlimited decoy multisig wallets.
 This feature would be strictly **experts only** and disabled by default.
 
-Note that just like regular/unblinded multisig commonly used today, if you lose your output descriptors and have `n-1` seeds (say `4-of-5` seeds in a `3-of-5` multisig) that is still **not sufficient** to regnerate your output descriptors.
+Note that just like regular/unblinded multisig commonly used today, if you lose your output descriptors and have `n-1` seeds (say `4-of-5` seeds in a `3-of-5` multisig) that is still **not sufficient** to regenerate your output descriptors.
 Determinitic BIP32 paths is only useful if you have all `n` seed phrases but lost your output descriptors.
 
 ### SSSS for Output Descriptors
