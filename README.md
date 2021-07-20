@@ -19,16 +19,16 @@
 ## Intro
 Bitcoin's multisig security model is a breakthrough in human ability to self-custody value.
 By comparison, it is impossible to `3-of-5` your gold.
-Multisig adoption has the power to reduce hacks/theft/loss in the bitcoin space by allowing users 1 (or more) catastrophic errors in their custody without putting any funds at risk.
+Multisig adoption has the power to reduce hacks/theft/loss in the bitcoin space by allowing HODLers to make 1 (or more) catastrophic errors in their custody without putting any funds at risk.
 
-However, multisig adoption currently suffer from a big problem: protecting your funds with `m-of-n` (i.e. `2-of-3`) seeds under current best practices means that there are now `n` locations where your privacy could be at risk.
+However, multisig currently suffers from a new problem: protecting your funds with `m-of-n` (i.e. `2-of-3`) seeds means that there are now `n` locations where your privacy could be at risk.
 
 ### Privacy Leakage
 
-Standard/default BIP32 path usage makes it so that if a bad actor gets unauthorized access to a BIP39 seed phrase, they can scan the blockchain for spent pubkeys in redeem scripts to learn about what funds that seed protects and how many other seeds are needed for access.
+Standard/default BIP32 path usage makes it so that if a bad actor gets unauthorized access to a BIP39 seed phrase, they can scan the blockchain for witness/redeem scripts in transaction inputs to learn about what funds that seed protects.
 For example, they might learn the following:
 * The stolen seed phrase was party to a massive bitcoin transaction yesterday.
-Note that this is the case even if this seed phrase did not produce a signature in the transaction and was just sitting in cold storage.
+Note that this is the case even if this seed phrase did not produce a signature in the transaction and was just sitting in deep cold storage.
 * The transaction appears to have had a large change output sent back to itself, so this seed phrase is likely still actively being used to protect (at least) that much bitcoin.
 * The transaction was a `2-of-3` of type `p2wsh`, so only 1 more seed phrase (along with the output descriptors) is needed to spend funds.
 * This wallet engages in similar transactions each Friday at ~4pm local time.
@@ -44,12 +44,12 @@ In this scheme, we demonstrate using a large and randomly generated BIP32 path t
 If a bad actor gets unauthorized access to that BIP39 seed (and passphrase, if applicable), they learn *nothing* about what it protects.
 This scheme enables 1 (or more) semi-trusted collaborative custodians to hold an emergency recovery key in your multisig quorum with *zero* knowledge of what they're protecting, which can make it far easier to achieve geographic, jurisdictional, and/or organizational diversity.
 
-This scheme is already live on bitcoin mainnet, is compatible with existing multisig hardware wallets and coordinator softwares (see [compatibility](#compatibility)), and has positive implications for privacy, recovery, and trust-minimized collaborative key-holders.
+This scheme is already live on bitcoin mainnet, is compatible with existing multisig hardware wallets and Coordinator softwares (see [compatibility](#compatibility)), and has positive implications for privacy, recovery, and trust-minimized collaborative key-holders.
 
 ## Walk-through
 
-For this demo, we'll use [Specter-Desktop](https://github.com/cryptoadvance/specter-desktop/) (powered by Bitcoin Core) as it's the de-facto standard for almost all new sovereign multisig users in 2021.
-This should work for any Coordinator software that supports modern multisig standards ([output descriptors](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) and [PSBTs](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki)).
+For this demo, we'll use [Specter-Desktop](https://github.com/cryptoadvance/specter-desktop/) (powered by Bitcoin Core) as it's used by the vast majority of new sovereign multisig users.
+This should work out of the box for any Coordinator software that supports modern multisig standards ([output descriptors](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) and [PSBTs](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki)).
 We'll also duplicate the code in [buidl](https://github.com/buidl-bitcoin/buidl-python) as it's a no-dependency FOSS bitcoin implementation that provides full support for every step of the blinding protocol.
 For simplicity, we are going to blind just `1` seed phrase in a `1-of-2`, but it should be obvious how to expand this to a `2-of-3`, `3-of-5`, or any other quorum.
 At the end, we'll discuss implications for blinding all `n` seed phrases.
@@ -104,13 +104,13 @@ This could be generated in buidl as follows:
 ```
 $ python3
 >>> from buidl.hd import HDPrivateKey
->>> HDPrivateKey.from_mnemonic("invest " * 12, testnet=True).generate_p2wsh_key_record()
+>>> HDPrivateKey.from_mnemonic("invest " * 12, network="testnet").generate_p2wsh_key_record()
 '[aa917e75/48h/1h/0h/2h]tpubDEZRP2dRKoGRJnR9zn6EoLouYKbYyjFsxywgG7wMQwCDVkwNvoLhcX1rTQipYajmTAF82kJoKDiNCgD4wUPahACE7n1trMSm7QS8B3S1fdy'
->>> HDPrivateKey.from_mnemonic("sell " * 12, testnet=True).generate_p2wsh_key_record()
+>>> HDPrivateKey.from_mnemonic("sell " * 12, network="testnet").generate_p2wsh_key_record()
 '[2553c4b8/48h/1h/0h/2h]tpubDEiNuxUt4pKjKk7khdv9jfcS92R1WQD6Z3dwjyMFrYj2iMrYbk3xB5kjg6kL4P8SoWsQHpd378RCTrM7fsw4chnJKhE2kfbfc4BCPkVh6g9'
 ```
 
-We ignore [SLIP132](https://github.com/satoshilabs/slips/blob/master/slip-0132.md) version byte encoding, but if your Coordinator software requires it then set `use_slip132_version_byte=True` in `buidl` or use [Jameson Lopp's convenient xpub converter](https://jlopp.github.io/xpub-converter/).
+We ignore [SLIP132](https://github.com/satoshilabs/slips/blob/master/slip-0132.md) version byte encoding, but if your Coordinator software requires it then pass `use_slip132_version_byte=True` into `generate_p2wsh_key_record()` or use [Jameson Lopp's convenient xpub converter](https://jlopp.github.io/xpub-converter/).
 
 </details>
 
@@ -125,11 +125,10 @@ This should make brute-forcing impossible.
 
 ![image](blinding.png)
 
-*Confusing note: this run of the program is not what was used in these examples, see text below for the actual results.*
-
 <details>
-  <summary>(text version)</summary>
+  <summary>Text version</summary>
 
+Here is the full text from running this tool, unfortunately I didn't save the original screenshot:
 ```
 $ python3 multiwallet.py 
 Welcome to multiwallet, the stateless multisig bitcoin wallet.
@@ -161,7 +160,7 @@ Important notes:
 <details>
   <summary>Ian Coleman BIP39 Verification</summary>
 
-You can validate on this on an airgap computer using [Ian Coleman’s popular open-source tool](https://iancoleman.io/bip39/) and [Jameson Lopp's xpub converter for SLIP132 version byte encoding](https://jlopp.github.io/xpub-converter/).
+You can validate on this on an airgap computer using [Ian Coleman’s popular open-source tool](https://iancoleman.io/bip39/).
 
 #### Derivation path from xpub:
 
@@ -242,7 +241,7 @@ Bitcoin Core (via Specter-Desktop), provides the following address:
 <details>
   <summary>Caravan verification</summary>
 
-While outside the scope of this demo, you can generate watch-only addresses with [Caravan](https://unchained-capital.github.io/caravan/) using [this wallet configuration file](bitcoin-1-of-2-P2WSH-testing.json) (derived from the output descriptors generated above):
+You can generate watch-only addresses with [Caravan](https://unchained-capital.github.io/caravan/) using [this wallet configuration file](bitcoin-1-of-2-P2WSH-testing.json) (derived from the output descriptors generated above):
 
 ![image](caravan_receive_address.png)
 
@@ -251,7 +250,7 @@ While outside the scope of this demo, you can generate watch-only addresses with
 <details>
   <summary>Sparrow verification</summary>
 
-While outside the scope of this demo, you can generate watch-only addresses with [Sparrow](https://sparrowwallet.com/) using the output descriptors (the thing starting with `wsh(sortedmulti(...`, see [Create Output Descriptors](#create-output-descriptors) above):
+You can generate watch-only addresses with [Sparrow](https://sparrowwallet.com/) using the output descriptors (the thing starting with `wsh(sortedmulti(...`, see [Create Output Descriptors](#create-output-descriptors) above):
 
 ![image](sparrow_receive_address.png)
 
@@ -286,7 +285,7 @@ cHNidP8BAFUCAAAAATVN3DO8pS2XldfMpqzYjO0nKmsg7qM9SyGfY3py0O5nAAAAAAD9////ASWGAQAA
   <summary>Caravan</summary>
 
 
-If you designate the transaction as a "Coldcard", Caravan can interact with buidl (because Caravan's Coldcard implementation is PSBT under-the-hood).
+If you designate the transaction as a "Coldcard", Caravan can interact with `buidl` (because Caravan's Coldcard implementation under-the-hood is regular PSBT).
 
 Then, you can generate the transaction to sign using multiwallet ([text](psbt_from_caravan.txt) or [screenshot](psbt_from_caravan.png)) and relay this to your bitcoin node:
 
@@ -298,12 +297,12 @@ Then, you can generate the transaction to sign using multiwallet ([text](psbt_fr
 
 #### Sign Using Blinded Key
 
-This can also be performed on Specter-DIY, or using any other PSBT-native hardware wallet that doesn't arbitrarily restrict BIP32 paths.
+This can also be performed on Specter-DIY, or using any other PSBT-native hardware wallet that doesn't restrict which BIP32 paths their customers can use.
 
 ![image](multiwallet_sellx12_blinded_spend.png)
 
 <details>
-  <summary>(text version)</summary>
+  <summary>Text version</summary>
 
 ```
 $ python3 multiwallet.py 
@@ -339,7 +338,7 @@ You could use any good multisig hardware wallet with the BIP39 seed phrase `inve
 ![image](multiwallet_investx12_regular_spend.png)
 
 <details>
-  <summary>(text version)</summary>
+  <summary>Text version</summary>
 
 
 ```
@@ -374,11 +373,11 @@ At the time of seed generation up until revealing the output descriptors (with s
 * Quorum information (`1-of-2` in this case)
 
 If the HODLer of this seed phrase were malicious (or compelled by a government), they would not be able to reveal *any* privacy information.
-Also, because this is built on top of existing BIP32 paths, it is *already* compatible with many existing wallet and coordinator libraries (see [compatibility](#compatibility)).
+Also, because this is built on top of existing BIP32 path standards, it is *already* compatible with many existing Hardware Wallets and Coordinator libraries (see [compatibility](#compatibility)).
 
 Of course, this scheme requires that the blinded key holder be able to get access to the output descriptors in the event they are needed for recovery.
 Presumably, revealing this privacy information is well worth it to the original key-holder:
-* If the original key-holder is still alive but has lost access to `m` seed phrases, this allows them to recover their bitcoin.
+* If the original key-holder is still alive but has lost access to `m` seed phrases, this allows them to recover their otherwise-lost bitcoin.
 * If the original key-holder is now deceased, privacy is likely no longer their top concern (they just want the funds to make it to their heirs).
 
 A common use-case here might be a `2-of-3` with the following criteria:
@@ -390,13 +389,15 @@ The safe deposit box is setup to automatically transfer to the HODLer's estate (
 In this situation, if a banker drills the safe deposit box and gets access to Seed B, they would be unable to tell what they gained access to (amount and/or quorum).
 
 Of course this is just one construction out of nearly infinite possibilities.
-Here are some other popular constructions:
+Some other popular constructions include:
 * Blind the heir's key (so that they don't know what they're inheriting) and give the output descriptors to a lawyer (who is bound by attorney-client privilege and also has **no private key material**).
-* Have a trusted family friend who understands how to use a hardware wallet hold `1` key (perhaps if the children are too young to be hold their own seeds), but blind that key so that the family friend cannot see what they're protecting (now the output descriptors must live with a lawyer and/or in a safe deposit box).
+* Have a trusted family friend who understands how to use a hardware wallet hold `1` blinded key (perhaps if the children are too young to be hold their own seeds).
+The family friend cannot see what they're protecting, as the output descriptors must live with a lawyer and/or in a safe deposit box.
 
 ### Compatibility
 
-What's amazing about this protocol, is that because it takes advantage of existing standards (BIP32 and output descriptors) it already works on the bitcoin network!
+What's amazing about this protocol is that because it takes advantage of existing standards (BIP32 and output descriptors) it already works on the bitcoin network!
+Adding support is usually a matter of just eliminating restrictions on BIP32 paths, not adding any new functionality.
 
 #### Signers
 
@@ -412,8 +413,6 @@ What's amazing about this protocol, is that because it takes advantage of existi
 | Trezor                | Hardware   | :grey_question:    | :grey_question:    | :grey_question:   |
 | Fully Noded / Gordian | Hardware   | :grey_question:    | :grey_question:    | :grey_question:   |
 
-TODO: fill in the blanks and add others
-
 Under regular use, Coldcard [cannot import enhanced-privacy multisig wallets for address validation](coldcard_import_fail.jpg), nor co-sign a transaction using regular/unblinded paths (unless you disable essential safety checks: `Settings > Multisig Wallets > Skip Checks`).
 
 
@@ -425,9 +424,6 @@ Under regular use, Coldcard [cannot import enhanced-privacy multisig wallets for
 | Caravan          | :white_check_mark:    | :white_check_mark:           |
 | Sparrow          | :white_check_mark:    | :white_check_mark:           |
 | Fully Noded      | :grey_question:       | :grey_question:              |
-| Nunchuk          | :grey_question:       | :grey_question:              |
-
-TODO: fill in the blanks and add others
 
 Note: to use Caravan for TX signing with PSBTs you must designate each Signer as a "Coldcard", since under-the-hood that is just the PSBT standard.
 
@@ -439,16 +435,17 @@ However, the same scheme could be applied to *every* seed phrase in our own quor
 This means that if a bad actor gets unauthorized access to a single seed phrase (perhaps a single secure location is compromised), they learn *nothing* about what it protects nor what threshold is required for access.
 
 Note, that we don't have to choose between blinding 1 and blinding all seeds, it is possible to mix and match.
-Once users grok the blinding scheme they are likely to want to blind *all* of their seeds, but due to limited hardware wallet support may choose (for now) to blind only those seeds that are kept in less-secure locations or with parties whom privacy is a bigger issue (e.g. a collaborative custody service that already knows your output descriptors).
+Once users grok the blinding scheme they are likely to want to blind *all* of their seeds, but in case of limited hardware wallet support may choose for now to blind only those seeds that are kept in less-secure locations or with parties for whom privacy is a bigger issue (e.g. not a collaborative custody service that already knows your output descriptors anyway).
 
 ### Seed Phrase Reuse
 
 It's important to note that in the case of using a trust-minimized third-party, that third-party could reuse the same seed phrase in nearly infinite trust-minimized setups.
-To put this in practical terms, an "Uncle-Jim bitcoiner" might give out the same xpub to dozens of friends/family members who wish to include "Uncle Jim" in their multisig quorum for emergency recovery, while preserving privacy.
+To put this in practical terms, an "Uncle-Jim bitcoiner" might give out the same xpub to dozens of friends/family members who wish to include Uncle Jim in their multisig quorum for emergency recovery, while preserving privacy.
+
 Since each blinded xpub has its own BIP32 path that is collision-resistant by design, there is theoretically no privacy leakage.
 To be safe, the best practice might be for Uncle Jim to give out a different xpub to each recipient.
 
-It would even be possible (though not required) for this seed phrase to be the very same one Uncle Jim uses to protect their personal bitcoin, meaning no new setup ceremony nor backup would be required for Uncle Jim to start protecting their friends and family's multisig.
+It would even be possible (though not required) for this seed phrase to be the very same one Uncle Jim uses to protect their personal bitcoin, meaning no new setup ceremony nor backups would be required for Uncle Jim to start help protect their friends' multisig wallets.
 Relying more heavily on one system might further incentivize Uncle Jim to improve his own seed phrase security, perhaps by using a better entropy source, a more durable metal plate backup, potentially including a passphrase, and/or using a protocol like [SLIP39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
 
 ### Emergency/Recovery Keys
@@ -458,18 +455,18 @@ For example, a `2-of-3` multisig where `2` seed phrases are kept at home is prob
 While `4-of-7` multisig sounds great in theory, how many people have access to `7` locations with around the clock security?
 The problem is even harder if you want geographic redundancy to protect against natural disasters (a fire, flood, or tornado leading to evacuation).
 
-By using this scheme, you can choose to delegate some trust to explicit third parties by giving them keys designed to only ever be used for recovery.
+By using this scheme, you can choose to delegate some trust to explicit third parties by giving them keys designed to only ever be used for emergency recovery.
 Under normal circumstances, they never sign a transaction nor even see your output descriptors.
-In an emergency recovery situation (you lose `1` or more seeds and/or are hit by a bus), these collaborative custodians can co-sign if supplied the output descriptors (destroying your privacy).
-Losing some privacy only if it leads to recovery of your otherwise lost funds is a compelling proposition for many bitcoiners.
+In an emergency recovery situation (you lose `1` or more seeds and/or are hit by a bus), these collaborative custodians can co-sign if they are supplied the output descriptors.
+Losing some privacy only if it leads to recovery of your otherwise lost bitcoin is a compelling proposition for many bitcoiners.
 
 ## Backing Up Output Descriptors
 
 Backing up output descriptors is a new problem that multisig introduces, regardless of whether this privacy scheme is used.
-Most new users don't realize that spending from a multisig wallet requires access to not only `m-of-n seed phrases` but also the output descriptors (public key information) for all `n` seeds.
-Under current best practices (regular/unblinded seeds), output descriptors can easily be regenerated from all `n` seed phrases, but it is impossible to regenerate output descriptors from `n-1` seed phrases.
+Most new users don't realize that spending from a multisig wallet requires more than just access to `m-of-n seed phrases`; you must also have the static output descriptors (extended public key information) for all `n` seeds.
+This means that if a user stores their funds in a `3-of-5` multisig wallet and loses only `1` seed (meaning that they still have access to the other `4` seed phrases), in order to spend the associated funds they must still also have a copy of their output descriptors.
 
-This means that if a user stores their funds in a `3-of-5` multisig wallet and loses only `1` seed (meaning that they still have access to the other `4` seed phrases), the only way they can spend the associated funds is if they have a copy of their output descriptors.
+Under current best practices (regular/unblinded seeds), multisig output descriptors can easily be regenerated from all `n` seed phrases, but it is impossible to regenerate output descriptors from `n-1` seed phrases.
 For this reason, **backups of output descriptors are already essential!**
 
 There are two problems with these backups:
@@ -478,7 +475,7 @@ There are two problems with these backups:
 
 ### Deterministic Paths
 
-A new problem introduced by this proposal is that if you lost your output descriptors yet still had access to **all** `n` seeds, you would be unable to regenerate the output descriptors needed to access your funds.
+Astute readers may notice a new problem introduced by this proposal: if you blind 1 or more xpubs and lose your output descriptors (yet still had access to **all** `n` seeds), you would be unable to regenerate the output descriptors needed to access your funds.
 This is not the case with regular/unblinded paths, where recovery of all `n` seeds is sufficient to deterministically regenerate your output descriptors.
 
 Current best practices are to backup your output descriptors with each seed, but let's assume that a HODLer doesn't do that, or over a long enough time perhaps the digital media and/or paper they used failed.
@@ -495,8 +492,7 @@ See [here](https://github.com/mflaxman/blind-xpub/blob/deterministic-paths/deter
 1. Lexicographic sorting of xpubs (not just `sortedmulti` at the child pubkey level, but sorting the parent xpubs to always produce the same PRF input)
 1. Ability to easily recover BIP32 paths (and thus full output descriptors) even if you forget your quorum threshold (`m`) and/or which of your xpubs you blinded.
 1. Deterministically unique and unlinkable BIP32 paths for each blinded xpub, so that publishing a BIP32 path for 1 xpub does not leak any info to other xpubs.
-1. An optional user-passphrase feature, which feeds extra entropy into the PRF, creating unlimited decoy multisig wallets.
-This feature would be strictly **experts only** and disabled by default.
+1. An optional user-passphrase feature, which feeds extra entropy into the PRF, creating unlimited decoy multisig wallets (**experts only** and disabled by default).
 
 Note that just like regular/unblinded multisig commonly used today, if you lose your output descriptors and have `n-1` seeds (say `4-of-5` seeds in a `3-of-5` multisig) that is still **not sufficient** to regenerate your output descriptors.
 Deterministic BIP32 paths is only useful if you have all `n` seed phrases but lost your output descriptors.
@@ -507,12 +503,12 @@ Regardless of whether this blinding proposal is implemented widely (with or with
 
 For example, assume:
 1. HODLer encrypts the output descriptors, and uses Shamir's Secret Sharing Scheme to divide the decryption key used into `2-of-n` parts (arbitrary but useful threshold).
-1. Each of `n` secure locations has: `1` unique seed phrase (perhaps etched in metal), `1` unique Shamir Share (see previous step), and a copy of the same encrypted output descriptors
+1. Each of `n` secure locations has: `1` unique seed phrase (perhaps etched in metal), `1` unique Shamir Share (see previous step), and a copy of the same encrypted output descriptors payload.
 
 Note that the encrypted output descriptors could be kept redundantly in *many* less secure locations (perhaps even cloud storage), as `2` shamir shares are needed to decrypt the output descriptors (and it alone cannot be used to spend funds).
 
 Then, as long as you are able to access `2` secure locations, you can recover your full output descriptors.
-It would then be possible to have something like a `3-of-5` on-chain `p2wsh` multisig, where `2-of-5` Shamir Shards are needed to recover the decryption key and recover the output descriptors.
+It would then be possible to have something like a `3-of-5` on-chain `p2wsh` multisig, where `2-of-5` Shamir Shares are needed to recover the decryption key and use it to decrypt the output descriptors.
 
 If that were to happen it would be very good for existing multisig setups, and also it would work excellently with these secret BIP32 paths.
 
@@ -538,7 +534,7 @@ I argue that using BIP32 paths is *strictly superior*.
 The passphrase is also required to "unlock" the HWW, vs just using an existing mechanism (output descriptors) to transfer unlocking data to the HWW.
 In this case of QR-based wallets, this unlocking is currently a magical UX; all you need to do is scan the Output Descriptors once and your hardware wallet is ready to go.
 * These unique passphrases must be stored somewhere.
-Of course, this could just be at the coordinator, but there is currently no mechanism/standard for how to do that (unlike BIP32 paths).
+Of course, this could just be at the Coordinator, but there is currently no mechanism/standard for how to do that (unlike BIP32 paths).
 * Requires visiting cold storage for re-use.
 For an "Uncle Jim" bitcoiner to participate in many different friends or family member multisig wallets, he must visit his cold storage and enter a unique passphrase before giving out an xpub to each participant.
 * If you want to use a regular BIP39 passphrase in addition to a blinding passphrase, that becomes complex.
@@ -564,14 +560,14 @@ Taproot also uses output descriptors to describe addresses, so you're facing a v
 As taproot is designed to be compatible with ECDSA private keys (and thus BIP39), this same scheme should play nicely with future taproot multisig standards as they emerge.
 
 Taproot has the nice advantage that script path spends only leak information about keys that were used to sign the transaction (other keys in deep cold storage that are still part of the quorum leak no information).
-Taproot alone might be sufficient for blinded 3rd party seed phrases, where a trust-minimized recovery-key holder must be given output descriptors to cosign (and then privacy with them is forever gone).
-However, taproot offers no benefit for first-party key-holders who want to blind their own seed phrases (that may have been used to spend before).
+Taproot alone might be sufficient for blinded 3rd party seed phrases, where a trust-minimized recovery-key holder must be given output descriptors to cosign (after privacy with them is lost).
+However, taproot offers no benefit for first-party key-holders who want to blind their own seed phrases before putting them in a secure location.
 
 ### Shamir's Secret Sharing Scheme
 
-While [Shamir's Secret Sharing Scheme with single sig is strictly inferior from a security perspective](https://btcguide.github.io/why-multisig-advanced#shamirs-secret-sharing-scheme), it does have the benefit that if someone gains access to `<m` shamir shares they learn *nothing* about what those Shamir Shares protect.
+While [Shamir's Secret Sharing Scheme with single sig is strictly inferior to multisig from a security perspective](https://btcguide.github.io/why-multisig-advanced#shamirs-secret-sharing-scheme), it does have the benefit that if someone gains access to `<m` shamir shares they learn *nothing* about what those Shamir Shares protect.
 
-Of course there are [many reasons why multisig is strictly superior](https://btcguide.github.io/why-multisig), and the potential privacy loss that multisig adds is completely eliminated using this proposal.
+Multisig security benefits aside, the potential privacy loss that multisig introduces is completely eliminated when using this proposal!
 
 ## References
 * [Blockchain commons thread on nosy signatories](https://github.com/BlockchainCommons/Airgapped-Wallet-Community/discussions/37)
