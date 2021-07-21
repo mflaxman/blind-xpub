@@ -418,7 +418,7 @@ Under regular use, Coldcard [cannot import enhanced-privacy multisig wallets for
 
 #### Coordinator Software
 
-| Name             | Display Addresses     | Coordinate TX Signing        |
+| Name             | Display Addresses     | Generate PSBT to Sign        |
 |------------------|-----------------------|------------------------------|
 | Specter-Desktop  | :white_check_mark:    | :white_check_mark:           |
 | Caravan          | :white_check_mark:    | :white_check_mark:           |
