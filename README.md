@@ -411,7 +411,7 @@ Adding support is usually a matter of just eliminating restrictions on BIP32 pat
 | Passport              | Hardware   | :white_check_mark: | :soon:             | :soon:            |
 | Coldcard              | Hardware   | :warning:          | :warning:          | :warning:         |
 | Trezor                | Hardware   | :grey_question:    | :grey_question:    | :grey_question:   |
-| Fully Noded / Gordian | Hardware   | :grey_question:    | :grey_question:    | :grey_question:   |
+| Fully Noded           | Software   | :white_check_mark: | :grey_question:    | :grey_question:   |
 
 Under regular use, Coldcard [cannot import enhanced-privacy multisig wallets for address validation](coldcard_import_fail.jpg), nor co-sign a transaction using regular/unblinded paths (unless you disable essential safety checks: `Settings > Multisig Wallets > Skip Checks`).
 
@@ -423,7 +423,7 @@ Under regular use, Coldcard [cannot import enhanced-privacy multisig wallets for
 | Specter-Desktop  | :white_check_mark:    | :white_check_mark:           |
 | Caravan          | :white_check_mark:    | :white_check_mark:           |
 | Sparrow          | :white_check_mark:    | :white_check_mark:           |
-| Fully Noded      | :grey_question:       | :grey_question:              |
+| Fully Noded      | :white_check_mark:    | :grey_question:              |
 
 Note: to use Caravan for TX signing with PSBTs you must designate each Signer as a "Coldcard", since under-the-hood that is just the PSBT standard.
 
