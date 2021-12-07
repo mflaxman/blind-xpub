@@ -408,7 +408,7 @@ Adding support is usually a matter of just eliminating restrictions on BIP32 pat
 | multiwallet.py        | Software   | :white_check_mark: | :white_check_mark: | :white_check_mark:|
 | Keystone              | Hardware   | :white_check_mark: | :white_check_mark: | :x:               |
 | BitBox02              | Hardware   | :white_check_mark: | :white_check_mark: | :x:               |
-| Passport              | Hardware   | :white_check_mark: | :soon:             | :soon:            |
+| Passport              | Hardware   | :white_check_mark: | :white_check_mark: | :white_check_mark:|
 | Coldcard              | Hardware   | :warning:          | :warning:          | :warning:         |
 | Trezor                | Hardware   | :grey_question:    | :grey_question:    | :grey_question:   |
 | Fully Noded           | Software   | :white_check_mark: | :grey_question:    | :grey_question:   |
